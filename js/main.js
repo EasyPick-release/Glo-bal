@@ -1,36 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Sito matrimonio caricato");
 
-  // Video di sfondo controllato dallo scroll
+  // Rileva se è mobile
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 768 || 
+                   ('ontouchstart' in window);
+
+  console.log('Dispositivo mobile:', isMobile);
+
+  // Video di sfondo controllato dallo scroll (solo desktop)
   const backgroundVideo = document.getElementById('background-video');
   let videoReady = false;
 
-  // Debug: verifica se il video è stato trovato
-  if (!backgroundVideo) {
-    console.error('ERRORE: Video element non trovato! Controlla che ci sia <video id="background-video"> nell\'HTML');
-    return;
+  if (isMobile) {
+    console.log('📱 Mobile rilevato: uso sfondo immagine invece del video');
+    // Forza sfondo immagine su mobile
+    document.body.style.background = "#ffffff url('assets/tovaglia2.jpg')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundRepeat = "no-repeat";
+    
+    if (backgroundVideo) {
+      backgroundVideo.style.display = 'none';
+    }
+  } else {
+    // Solo desktop: gestisce il video
+    if (!backgroundVideo) {
+      console.error('ERRORE: Video element non trovato! Controlla che ci sia <video id="background-video"> nell\'HTML');
+      return;
+    }
+    
+    console.log('Video element trovato:', backgroundVideo);
+    console.log('Video src:', backgroundVideo.querySelector('source')?.src || 'Nessuna source trovata');
+
+    // Aspetta che il video sia caricato (solo desktop)
+    backgroundVideo.addEventListener('loadedmetadata', () => {
+      videoReady = true;
+      console.log('✅ Video prova.mp4 caricato con successo!');
+      console.log('Durata video:', backgroundVideo.duration, 'secondi');
+      console.log('Dimensioni video:', backgroundVideo.videoWidth + 'x' + backgroundVideo.videoHeight);
+      updateVideoTime(); // Imposta il frame iniziale
+    });
+
+    // Debug: eventi di caricamento video
+    backgroundVideo.addEventListener('loadstart', () => console.log('📥 Inizio caricamento video...'));
+    backgroundVideo.addEventListener('canplay', () => console.log('▶️ Video pronto per la riproduzione'));
+    
+    // Gestione errori video
+    backgroundVideo.addEventListener('error', (e) => {
+      console.error('Errore caricamento prova.mp4:', e);
+      // Ripristina lo sfondo immagine come fallback
+      document.body.style.background = "#ffffff url('assets/tovaglia2.jpg')";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundAttachment = "fixed";
+    });
   }
   
-  console.log('Video element trovato:', backgroundVideo);
-  console.log('Video src:', backgroundVideo.querySelector('source')?.src || 'Nessuna source trovata');
-
-  // Aspetta che il video sia caricato
-  backgroundVideo.addEventListener('loadedmetadata', () => {
-    videoReady = true;
-    console.log('✅ Video prova.mp4 caricato con successo!');
-    console.log('Durata video:', backgroundVideo.duration, 'secondi');
-    console.log('Dimensioni video:', backgroundVideo.videoWidth + 'x' + backgroundVideo.videoHeight);
-    updateVideoTime(); // Imposta il frame iniziale
-  });
-
-  // Debug: eventi di caricamento video
-  backgroundVideo.addEventListener('loadstart', () => console.log('📥 Inizio caricamento video...'));
-  backgroundVideo.addEventListener('canplay', () => console.log('▶️ Video pronto per la riproduzione'));
-  
-  // Funzione per aggiornare il tempo del video basato sullo scroll
+  // Funzione per aggiornare il tempo del video basato sullo scroll (solo desktop)
   function updateVideoTime() {
-    if (!videoReady || !backgroundVideo.duration) {
-      console.log('⚠️ Video non pronto o durata non disponibile');
+    if (isMobile || !videoReady || !backgroundVideo || !backgroundVideo.duration) {
+      if (!isMobile) console.log('⚠️ Video non pronto o durata non disponibile');
       return;
     }
 
@@ -131,9 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
     lemon.style.transform = `rotate(${rotation}deg)`;
   }
 
-  // Listener per lo scroll che aggiorna sia video che limone
+  // Listener per lo scroll che aggiorna video (desktop) e limone
   function onScroll() {
-    updateVideoTime();
+    if (!isMobile) updateVideoTime();
     updateLemonPosition();
   }
 
@@ -146,18 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('resize', onResize);
   
   // Imposta posizioni iniziali
-  updateVideoTime();
+  if (!isMobile) updateVideoTime();
   updateLemonPosition();
-
-  // Gestione errori video
-  backgroundVideo.addEventListener('error', (e) => {
-    console.error('Errore caricamento prova.mp4:', e);
-    // Ripristina lo sfondo immagine come fallback
-    document.body.style.background = "#ffffff url('assets/tovaglia2.jpg')";
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundAttachment = "fixed";
-  });
 
   // Qui in futuro:
   // - validazioni
