@@ -132,51 +132,6 @@ body::before {
   color: #666;
 }
 
-/* LIMONE ANIMATO */
-.lemon {
-  position: absolute;
-  top: 20px;
-  left: calc(100vw - 100px);
-  width: 60px;
-  height: 80px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e  50%, #f9dc5c 100%);
-  border-radius: 30% 70% 70% 30%;
-  border: 3px solid #e6c200;
-  box-shadow: 
-    inset -10px -10px 0 rgba(255, 255, 255, 0.2),
-    inset 5px 5px 0 rgba(0, 0, 0, 0.1),
-    0 5px 15px rgba(0, 0, 0, 0.3);
-  transform-origin: center center;
-  transition: none;
-  z-index: 1000;
-}
-
-.lemon::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 12px;
-  background: #4a7c59;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-}
-
-.lemon::after {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 45%;
-  transform: translateX(-50%) rotate(-20deg);
-  width: 15px;
-  height: 8px;
-  background: #6b8e5a;
-  border-radius: 50%;
-  border-top-left-radius: 80%;
-  border-bottom-left-radius: 20%;
-}
-
 /* FOOTER */
 footer {
   text-align: center;

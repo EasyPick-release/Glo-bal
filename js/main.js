@@ -117,68 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 '| Actual:', backgroundVideo.currentTime.toFixed(2) + 's');
   }
 
-  // Limone che rotola lungo un arco durante lo scroll
-  const lemon = document.getElementById('lemon');
-  let rotation = 0;
-  
-  function updateLemonPosition() {
-    // Calcola l'altezza totale scrollabile
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = window.innerHeight;
-    const maxScroll = scrollHeight - clientHeight;
-    
-    // Se non c'è scroll possibile, usa una percentuale basata su posizione fissa
-    let scrollPercent;
-    if (maxScroll <= 0) {
-      scrollPercent = 0;
-    } else {
-      scrollPercent = window.scrollY / maxScroll;
-    }
-    
-    // Limita tra 0 e 1
-    const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
-    
-    // Posizioni iniziali e finali
-    const startX = window.innerWidth - 100;
-    const startY = 30;
-    const endX = window.innerWidth + 80;
-    const endY = window.innerHeight - 100;
-    
-    // Calcola posizione lungo l'arco
-    const currentX = startX + (endX - startX) * clampedPercent;
-    
-    // Y: movimento ad arco (parabola)
-    const arcHeight = 150;
-    const currentY = startY + 
-      (endY - startY) * clampedPercent + 
-      Math.sin(clampedPercent * Math.PI) * arcHeight;
-    
-    // Rotazione proporzionale al movimento
-    rotation = clampedPercent * 720; // 2 giri completi
-    
-    // Applica posizione e rotazione
-    lemon.style.left = `${currentX}px`;
-    lemon.style.top = `${currentY}px`;
-    lemon.style.transform = `rotate(${rotation}deg)`;
-  }
 
-  // Listener per lo scroll che aggiorna video (desktop) e limone
+  // Listener per lo scroll che aggiorna video (desktop)
   function onScroll() {
     if (!isMobile) updateVideoTime();
-    updateLemonPosition();
   }
 
-  // Listener per ridimensionamento finestra
-  function onResize() {
-    updateLemonPosition();
-  }
+  // Listener per ridimensionamento finestr
 
   window.addEventListener('scroll', onScroll);
   window.addEventListener('resize', onResize);
   
   // Imposta posizioni iniziali
   if (!isMobile) updateVideoTime();
-  updateLemonPosition();
 
   // Qui in futuro:
   // - validazioni
