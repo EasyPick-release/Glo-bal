@@ -10,6 +10,39 @@ body {
   color: #1d1d1f;
   background: #ffffff;
   line-height: 1.6;
+  position: relative;
+}
+
+/* VIDEO DI SFONDO */
+#background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  z-index: -2;
+  opacity: 0.8;
+  /* Alternative fitting modes - uncomment one if cover doesn't work well */
+  /* object-fit: fill; */ /* Stretch to fill screen - may distort */
+  /* object-fit: contain; */ /* Keep aspect ratio, may have black bars */
+  /* object-fit: none; */ /* Original size, may be cropped */
+}
+
+/* Overlay semitrasparente per leggibilità */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* HERO */
@@ -71,6 +104,51 @@ body {
   border: 1px dashed #ccc;
   text-align: center;
   color: #666;
+}
+
+/* LIMONE ANIMATO */
+.lemon {
+  position: absolute;
+  top: 20px;
+  left: calc(100vw - 100px);
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e  50%, #f9dc5c 100%);
+  border-radius: 30% 70% 70% 30%;
+  border: 3px solid #e6c200;
+  box-shadow: 
+    inset -10px -10px 0 rgba(255, 255, 255, 0.2),
+    inset 5px 5px 0 rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.3);
+  transform-origin: center center;
+  transition: none;
+  z-index: 1000;
+}
+
+.lemon::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 12px;
+  background: #4a7c59;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+.lemon::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 45%;
+  transform: translateX(-50%) rotate(-20deg);
+  width: 15px;
+  height: 8px;
+  background: #6b8e5a;
+  border-radius: 50%;
+  border-top-left-radius: 80%;
+  border-bottom-left-radius: 20%;
 }
 
 /* FOOTER */

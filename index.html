@@ -9,13 +9,23 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <!-- Video di sfondo controllato dallo scroll -->
+  <video id="background-video" muted preload="metadata">
+    <source src="assets/prova.mp4" type="video/mp4">
+    <!-- Video di test che sicuramente funziona con seeking -->
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+    Il tuo browser non supporta i video HTML5.
+  </video>
+
+  <!-- Limone che rotola -->
+  <div class="lemon" id="lemon"></div>
 
   <header class="hero">
-    <img src="assets/hero.jpg" alt="Noi" />
+    <!--mg src="assets/hero.jpg" alt="Noi" /-->
     <div class="hero-text">
       <h1>Ci sposiamo</h1>
-      <p>Marco & Giulia</p>
-      <span>21 Settembre 2026</span>
+      <p>Andrea & Gloria</p>
+      <span>18 Luglio 2026</span>
     </div>
   </header>
 
@@ -25,6 +35,52 @@
       <p>
         Saremo felici di festeggiare con voi questo giorno speciale.
         Qui troverete tutte le informazioni utili.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Programma della giornata</h2>
+      <p>
+        <strong>14:30</strong> - Cerimonia civile presso il Municipio<br>
+        <strong>16:00</strong> - Cocktail di benvenuto<br>
+        <strong>19:30</strong> - Cena di gala<br>
+        <strong>23:00</strong> - Taglio della torta e balli<br>
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Location</h2>
+      <p>
+        La festa si terrà presso Villa dei Fiori, immersa nel verde
+        delle colline toscane. Un luogo magico dove celebrare
+        l'inizio della nostra nuova vita insieme.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Come raggiungerci</h2>
+      <p>
+        La villa si trova a soli 15 minuti dal centro città.
+        Sarà disponibile un servizio navetta gratuito dalla stazione.
+        Per chi arriva in auto, c'è un ampio parcheggio privato.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Dress Code</h2>
+      <p>
+        L'abbigliamento richiesto è elegante. Vi consigliamo colori
+        chiari per le donne e abito scuro per gli uomini.
+        Evitate il bianco, quello è riservato alla sposa! 😊
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Lista nozze</h2>
+      <p>
+        La vostra presenza è il regalo più bello che potremmo ricevere.
+        Per chi volesse comunque farci un dono, abbiamo preparato
+        una lista presso i principali negozi della città.
       </p>
     </section>
 
@@ -42,7 +98,7 @@
   </main>
 
   <footer>
-    <p>Con affetto, Marco & Giulia</p>
+    <p>Con affetto, Andrea & Gloria</p>
   </footer>
 
   <script type="module" src="js/main.js"></script>
