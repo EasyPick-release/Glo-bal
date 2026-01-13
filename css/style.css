@@ -13,26 +13,7 @@ body {
   position: relative;
 }
 
-/* MOBILE: Usa immagine invece del video */
-@media (max-width: 768px) {
-  body {
-    background: #ffffff url('../assets/tovaglia2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-  }
-  
-  #background-video {
-    display: none !important;
-  }
-  
-  body::before {
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* VIDEO DI SFONDO - Solo Desktop */
+/* VIDEO DI SFONDO - Tutti i dispositivi */
 #background-video {
   position: fixed;
   top: 0;
@@ -49,13 +30,6 @@ body {
   /* object-fit: fill; */ /* Stretch to fill screen - may distort */
   /* object-fit: contain; */ /* Keep aspect ratio, may have black bars */
   /* object-fit: none; */ /* Original size, may be cropped */
-}
-
-/* MOBILE: Nascondi video completamente */
-@media (max-width: 768px), (hover: none) {
-  #background-video {
-    display: none !important;
-  }
 }
 
 /* Overlay semitrasparente per leggibilità */
