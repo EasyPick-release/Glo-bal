@@ -13,13 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log('Video element trovato:', backgroundVideo);
   console.log('Video src:', backgroundVideo.querySelector('source')?.src || 'Nessuna source trovata');
 
-  // Aspetta che il video sia caricato
+  // Aspetta che il video sia caricato e bloccalo sul primo frame
   backgroundVideo.addEventListener('loadedmetadata', () => {
     videoReady = true;
-    console.log('✅ Video caricato con successo!');
+    console.log('✅ Video caricato - bloccato sul primo frame');
     console.log('Durata video:', backgroundVideo.duration, 'secondi');
     console.log('Dimensioni video:', backgroundVideo.videoWidth + 'x' + backgroundVideo.videoHeight);
-    updateVideoTime(); // Imposta il frame iniziale
+    
+    // Blocca sul primo frame
+    backgroundVideo.currentTime = 0;
+    backgroundVideo.pause();
   });
 
   // Debug: eventi di caricamento video
@@ -44,63 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.style.backgroundAttachment = "fixed";
     });
 
-  // Funzione per aggiornare il tempo del video basato sullo scroll
+  // Funzione per aggiornare il tempo del video basato sullo scroll - DISABILITATA
   function updateVideoTime() {
-    if (!videoReady || !backgroundVideo || !backgroundVideo.duration) {
-      console.log('⚠️ Video non pronto o durata non disponibile');
-      return;
-    }
-
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = window.innerHeight;
-    const maxScroll = scrollHeight - clientHeight;
-    
-    let scrollPercent;
-    if (maxScroll <= 0) {
-      scrollPercent = 0;
-    } else {
-      scrollPercent = window.scrollY / maxScroll;
-    }
-    
-    const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
-    
-    // Calcola il tempo del video basato sulla percentuale di scroll
-    const videoTime = clampedPercent * backgroundVideo.duration;
-    const oldTime = backgroundVideo.currentTime;
-    
-    // NUOVO: Debug dettagliato del seeking
-    console.log('🔍 PRIMA - currentTime:', backgroundVideo.currentTime.toFixed(2));
-    console.log('🔍 SEEKABLE:', backgroundVideo.seekable.length > 0 ? 
-                `${backgroundVideo.seekable.start(0).toFixed(2)}-${backgroundVideo.seekable.end(0).toFixed(2)}` : 'NO');
-    
-    try {
-      backgroundVideo.currentTime = videoTime;
-      
-      // Forza il refresh del video
-      setTimeout(() => {
-        console.log('🔍 DOPO - currentTime:', backgroundVideo.currentTime.toFixed(2));
-        console.log('🔍 DIFFERENZA:', Math.abs(backgroundVideo.currentTime - videoTime).toFixed(3));
-        
-        // Se il seeking non funziona, prova un approccio alternativo
-        if (Math.abs(backgroundVideo.currentTime - videoTime) > 0.5) {
-          console.warn('⚠️ Seeking non preciso, provo approccio alternativo...');
-          
-          // Pausa e riproduci per forzare il refresh
-          backgroundVideo.pause();
-          backgroundVideo.currentTime = videoTime;
-          backgroundVideo.play().then(() => {
-            backgroundVideo.pause();
-          }).catch(e => console.log('Play/pause fallito:', e));
-        }
-      }, 50);
-      
-    } catch (error) {
-      console.error('❌ Errore nel seeking:', error);
-    }
-    
-    console.log('🎬 Scroll:', (clampedPercent * 100).toFixed(1) + '%', 
-                '| Target:', videoTime.toFixed(2) + 's', 
-                '| Actual:', backgroundVideo.currentTime.toFixed(2) + 's');
+    // Video bloccato sul primo frame - non aggiornare più
+    return;
   }
 
   // Limone che rotola lungo un arco durante lo scroll
@@ -142,37 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function onScroll() {
     updateVideoTime();
     updateLemonPosition();
-    
-    // NAVIGAZIONE PAGINE CON SCROLL (solo se non siamo sulla home)
-    if (currentPageIndex !== 0) {
-      handleScrollNavigation();
-    }
-  }
-  
-  // Gestione navigazione con scroll tra le pagine
-  let scrollTimeout;
-  let isScrolling = false;
-  
-  function handleScrollNavigation() {
-    if (isScrolling) return;
-    
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      
-      // Calcola quale pagina dovrebbe essere attiva basandosi sullo scroll
-      const targetPage = Math.round(scrollPercent * (pages.length - 1));
-      
-      if (targetPage !== currentPageIndex && targetPage >= 1) {
-        isScrolling = true;
-        showPage(targetPage);
-        
-        // Reset flag dopo la transizione
-        setTimeout(() => {
-          isScrolling = false;
-        }, 1000);
-      }
-    }, 150); // Debounce per evitare troppi cambi rapidi
   }
 
   // Listener per ridimensionamento finestra
@@ -190,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // HAMBURGER MENU
   const hamburger = document.getElementById('hamburger');
   const pageNav = document.getElementById('pageNav');
-  const heroImage = document.getElementById('heroImage');
   let menuOpen = false;
 
   hamburger.addEventListener('click', () => {
@@ -208,51 +126,210 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // NAVIGAZIONE PAGINE CON EFFETTI DI DISSOLVENZA E CAMBIO FOTO
+  // NAVIGAZIONE TIPO POWERPOINT - SEZIONI CHE SI SOSTITUISCONO COMPLETAMENTE
   const navButtons = document.querySelectorAll('.nav-btn');
-  const pages = document.querySelectorAll('.page');
-  let currentPageIndex = 0;
+  const sections = document.querySelectorAll('.section-page');
+  const transitionOverlay = document.getElementById('transitionOverlay');
+  let currentSectionIndex = 0;
+  let isTransitioning = false;
 
-  function showPage(pageIndex) {
-    // Nascondi la pagina corrente
-    pages[currentPageIndex].classList.remove('active');
-    navButtons[currentPageIndex].classList.remove('active');
-    
-    // Gestisci la modalità home (schermo intero, no scroll)
-    if (pageIndex === 0) {
-      // Attiva modalità home
-      document.body.classList.add('home-active');
-    } else {
-      // Disattiva modalità home
-      document.body.classList.remove('home-active');
+  // Funzione per mostrare una sezione specifica (tipo slide PowerPoint)
+  function showSection(sectionIndex) {
+    if (isTransitioning || sectionIndex === currentSectionIndex || sectionIndex < 0 || sectionIndex >= sections.length) {
+      return;
     }
     
-    // Cambia l'immagine dell'header basandosi sulla pagina selezionata
-    const selectedPage = pages[pageIndex];
-    const imageUrl = selectedPage.getAttribute('data-image');
+    isTransitioning = true;
     
-    if (imageUrl && heroImage) {
-      heroImage.style.opacity = '0';
-      setTimeout(() => {
-        heroImage.src = imageUrl;
-        heroImage.style.opacity = '1';
-      }, 200);
-    }
+    // Attiva overlay di transizione
+    transitionOverlay.classList.add('active');
     
-    // Mostra la nuova pagina dopo un piccolo ritardo per l'effetto
     setTimeout(() => {
-      pages[pageIndex].classList.add('active');
-      navButtons[pageIndex].classList.add('active');
-      currentPageIndex = pageIndex;
+      // Nascondi tutte le sezioni
+      sections.forEach(section => section.classList.remove('active'));
       
-      // Chiudi il menu dopo la selezione
+      // Mostra nuova sezione
+      sections[sectionIndex].classList.add('active');
+      
+      // Aggiorna pulsanti navigazione
+      navButtons.forEach((btn, index) => {
+        btn.classList.toggle('active', index === sectionIndex);
+      });
+      
+      // Aggiorna indice corrente
+      currentSectionIndex = sectionIndex;
+      
+      // Chiudi menu se aperto
       if (menuOpen) {
         menuOpen = false;
         hamburger.classList.remove('active');
         pageNav.classList.remove('show');
       }
-    }, 100);
+      
+      setTimeout(() => {
+        // Rimuovi overlay
+        transitionOverlay.classList.remove('active');
+        isTransitioning = false;
+      }, 200);
+      
+    }, 200); // Tempo per completare fade
   }
+
+  // Event listeners per i pulsanti di navigazione
+  navButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      showSection(index);
+    });
+  });
+
+  // Navigazione con le frecce della tastiera
+  document.addEventListener('keydown', (e) => {
+    if (isTransitioning) return;
+    
+    if (e.key === 'ArrowDown' && currentSectionIndex < sections.length - 1) {
+      showSection(currentSectionIndex + 1);
+    } else if (e.key === 'ArrowUp' && currentSectionIndex > 0) {
+      showSection(currentSectionIndex - 1);
+    }
+  });
+
+  // Navigazione con rotella del mouse
+  let wheelTimeout;
+  let wheelDelta = 0;
+  document.addEventListener('wheel', (e) => {
+    if (isTransitioning) {
+      e.preventDefault();
+      return;
+    }
+    
+    wheelDelta += e.deltaY;
+    
+    clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(() => {
+      if (Math.abs(wheelDelta) > 500) { // Soglia alta per evitare cambi accidentali
+        e.preventDefault();
+        
+        if (wheelDelta > 0 && currentSectionIndex < sections.length - 1) {
+          showSection(currentSectionIndex + 1);
+        } else if (wheelDelta < 0 && currentSectionIndex > 0) {
+          showSection(currentSectionIndex - 1);
+        }
+        wheelDelta = 0;
+      }
+    }, 150);
+  }, { passive: false });
+
+  // Inizializza la prima sezione come attiva
+  sections[0].classList.add('active');
+  navButtons[0].classList.add('active');
+
+  // NAVIGAZIONE SEZIONI CON SCROLL CONTINUO E TRANSIZIONI
+  const navButtons = document.querySelectorAll('.nav-btn');
+  const sections = document.querySelectorAll('.section-page');
+  const transitionOverlay = document.getElementById('transitionOverlay');
+  let currentSectionIndex = 0;
+  let isTransitioning = false;
+
+  // Funzione per navigare a una sezione specifica con effetto dissolvenza
+  function scrollToSection(sectionIndex, withTransition = true) {
+    if (isTransitioning || sectionIndex === currentSectionIndex) return;
+    
+    const targetSection = sections[sectionIndex];
+    if (!targetSection) return;solo il limone
+  function onScroll() {
+    // updateVideoTime(); // Disabilitato - video bloccato) {
+      // Avvia transizione
+      isTransitioning = true;
+      transitionOverlay.classList.add('active');
+      
+      // Aggiungi effetto fade alle sezioni
+      sections.forEach((section, index) => {
+        if (index === currentSectionIndex) {
+          section.classList.add('fade-out');
+        }
+      });
+      
+      setTimeout(() => {
+        // Esegui lo scroll durante la dissolvenza
+        targetSection.scrollIntoView({ 
+          behavior: 'auto', // Istantaneo durante la dissolvenza
+          block: 'start'
+        });
+        
+        // Rimuovi effetti fade
+        sections.forEach(section => {
+          section.classList.remove('fade-out', 'fade-in');
+        });
+        
+        // Aggiungi fade-in alla nuova sezione
+        targetSection.classList.add('fade-in');
+        
+        setTimeout(() => {
+          // Termina transizione
+          transitionOverlay.classList.remove('active');
+          targetSection.classList.remove('fade-in');
+          isTransitioning = false;
+          
+          // Aggiorna stato
+          updateActiveSection(sectionIndex);
+        }, 100);
+      }, 300); // Durata dissolvenza
+    } else {
+      // Scroll normale senza transizione
+      targetSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      updateActiveSection(sectionIndex);
+    }
+  }
+  
+  function updateActiveSection(sectionIndex) {
+    // Aggiorna stato attivo nei pulsanti
+    navButtons.forEach((btn, index) => {
+      btn.classList.toggle('active', index === sectionIndex);
+    });
+    
+    currentSectionIndex = sectionIndex;
+    
+    // Chiudi il menu dopo la navigazione
+    if (menuOpen) {
+      menuOpen = false;
+      hamburger.classList.remove('active');
+      pageNav.classList.remove('show');
+    }
+  }
+
+  // Event listeners per i pulsanti di navigazione
+  navButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      scrollToSection(index);
+    });
+  });
+
+  // Osserva quale sezione è attualmente visibile
+  const observerOptions = {
+    threshold: 0.7, // Sezione deve essere 70% visibile
+    rootMargin: '0px'
+  };
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !isTransitioning) {
+        const sectionId = entry.target.id;
+        const sectionIndex = parseInt(sectionId.split('-')[1]);
+        
+        if (sectionIndex !== currentSectionIndex) {
+          updateActiveSection(sectionIndex);
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Osserva tutte le sezioni
+  sections.forEach(section => {
+    sectionObserver.observe(section);
+  });
 
   // Aggiungi event listeners ai pulsanti di navigazione
   navButtons.forEach((button, index) => {
@@ -265,56 +342,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Navigazione con le frecce della tastiera
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' && currentPageIndex < pages.length - 1) {
-      showPage(currentPageIndex + 1);
-    } else if (e.key === 'ArrowLeft' && currentPageIndex > 0) {
-      showPage(currentPageIndex - 1);
-    }
-  });
-
-  // Cambio automatico delle pagine ogni 10 secondi (opzionale)
-  let autoSlideInterval;
-  
-  function startAutoSlide() {
-    autoSlideInterval = setInterval(() => {
-      const nextPage = (currentPageIndex + 1) % pages.length;
-      showPage(nextPage);
-    }, 8000); // 8 secondi
-  }
-
-  function stopAutoSlide() {
-    if (autoSlideInterval) {
-      clearInterval(autoSlideInterval);
-    }
-  }
-
-  // Avvia il cambio automatico dopo 3 secondi di inattività
-  let inactivityTimer;
-  
-  function resetInactivityTimer() {
-    stopAutoSlide();
-    clearTimeout(inactivityTimer);
+    if (isTransitioning) return;
     
-    inactivityTimer = setTimeout(() => {
-      startAutoSlide();
-    }, 3000);
-  }
-
-  // Reset timer su interazione utente
-  navButtons.forEach(button => {
-    button.addEventListener('click', resetInactivityTimer);
+    if (e.key === 'ArrowDown' && currentSectionIndex < sections.length - 1) {
+      scrollToSection(currentSectionIndex + 1, true);
+    } else if (e.key === 'ArrowUp' && currentSectionIndex > 0) {
+      scrollToSection(currentSectionIndex - 1, true);
+    }
   });
-  
-  document.addEventListener('keydown', resetInactivityTimer);
-  document.addEventListener('mousemove', resetInactivityTimer);
 
-  // Avvia il timer iniziale
-  resetInactivityTimer();
-  
-  // Inizializza la modalità home (dato che partiamo dalla pagina 0)
-  document.body.classList.add('home-active');
+  // Navigazione con rotella del mouse
+  let wheelTimeout;
+  let wheelDelta = 0;
+  document.addEventListener('wheel', (e) => {
+    if (isTransitioning) {
+      e.preventDefault();
+      return;
+    }
+    
+    wheelDelta += e.deltaY;
+    
+    clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(() => {
+      if (Math.abs(wheelDelta) > 400) { // Soglia più alta per evitare cambi accidentali
+        e.preventDefault();
+        
+        if (wheelDelta > 0 && currentSectionIndex < sections.length - 1) {
+          scrollToSection(currentSectionIndex + 1, true);
+        } else if (wheelDelta < 0 && currentSectionIndex > 0) {
+          scrollToSection(currentSectionIndex - 1, true);
+        }
+        wheelDelta = 0;
+      }
+    }, 150);
+  }, { passive: false });
+
+  // Imposta posizioni iniziali
+  updateVideoTime();
+  updateLemonPosition();
+
+  console.log('✅ Sito matrimonio con scroll continuo caricato!');
+  console.log('Sezioni disponibili:', sections.length);
 
   // Qui in futuro:
-  // - validazioni
+  // - validazioni  
   // - gestione form
 });

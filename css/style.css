@@ -11,15 +11,11 @@ body {
   background: #ffffff;
   line-height: 1.6;
   position: relative;
-}
-
-/* Blocca scroll quando è attiva la home page */
-body.home-active {
-  overflow: hidden;
+  overflow: hidden; /* Nasconde scroll per esperienza slide */
   height: 100vh;
 }
 
-/* VIDEO DI SFONDO - Tutti i dispositivi */
+/* VIDEO DI SFONDO - Bloccato sul primo frame */
 #background-video {
   position: fixed;
   top: 0;
@@ -31,11 +27,26 @@ body.home-active {
   object-fit: cover;
   object-position: center center;
   z-index: -2;
-  opacity: 0.8;
-  /* Alternative fitting modes - uncomment one if cover doesn't work well */
-  /* object-fit: fill; */ /* Stretch to fill screen - may distort */
-  /* object-fit: contain; */ /* Keep aspect ratio, may have black bars */
-  /* object-fit: none; */ /* Original size, may be cropped */
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Overlay per transizioni tipo PowerPoint */
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(45deg, #ffffff 0%, #f8f9fa 100%);
+  opacity: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.transition-overlay.active {
+  opacity: 1;
 }
 
 /* Overlay semitrasparente per leggibilità */
@@ -51,39 +62,65 @@ body::before {
   pointer-events: none;
 }
 
-/* HERO */
-.hero {
+/* SEZIONI FULLSCREEN TIPO POWERPOINT */
+.sections-container {
   position: relative;
-  height: 70vh;
-  overflow: hidden;
-  transition: height 0.6s ease;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Hero a schermo intero quando è attiva la home page */
-body.home-active .hero {
-  height: 100vh;
-  position: fixed;
+.section-page {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
-.hero img {
+.section-page.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  z-index: 2;
+}
+
+.home-section {
+  justify-content: center;
+  align-items: center;
+}
+
+.section-page:not(.home-section) {
+  justify-content: flex-start;
+}
+
+/* IMMAGINI SEZIONI */
+.section-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Home: foto a schermo intero */
+.home-section .section-image {
+  height: 100vh;
+}
+
+/* Altre sezioni: foto al 70% */
+.section-page:not(.home-section) .section-image {
+  height: 70vh;
+}
+
+.section-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.4s ease;
-}
-
-/* Sfumatura nella parte inferiore della foto principale - DISABILITATA */
-.hero::after {
-  display: none;
-}
-
-/* Nascondi sfumatura nella home page - NON PIÙ NECESSARIO */
-body.home-active .hero::after {
-  display: none;
 }
 
 .hero-text {
@@ -91,11 +128,13 @@ body.home-active .hero::after {
   bottom: 2rem;
   left: 2rem;
   color: white;
+  z-index: 10;
 }
 
 .hero-text h1 {
   font-size: 3rem;
   font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-text p {
@@ -144,11 +183,51 @@ body.home-active .hero::after {
   transform: rotate(-45deg) translate(8px, -8px);
 }
 
+/* CONTENUTI SEZIONI */
+.section-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  align-self: center;
+}
+
+.section-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1d1d1f;
+  font-weight: 600;
+  text-align: center;
+}
+
+.content-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #444;
+  text-align: center;
+}
+
+.time-entry {
+  margin: 0.8rem 0;
+  padding: 1rem;
+  background: rgba(240, 240, 240, 0.7);
+  border-radius: 8px;
+  border-left: 3px solid #1d1d1f;
+}
+
 /* NAVIGAZIONE PAGINE (nascosta di default) */
 .page-nav {
   position: fixed;
   top: 50%;
-  right: -300px; /* Nascosta inizialmente */
+  right: -300px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -186,70 +265,6 @@ body.home-active .hero::after {
 .nav-btn.active {
   background: rgba(29, 29, 31, 0.9);
   color: white;
-}
-
-/* CONTAINER PAGINE */
-.page-container {
-  position: relative;
-  min-height: 50vh;
-}
-
-.page {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-  transform: translateY(20px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.page.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* HOME PAGE - Solo foto */
-.home-page {
-  background: none;
-}
-
-/* CONTENUTO PAGINE */
-.page-content {
-  max-width: 800px;
-  width: 90%;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 3rem;
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  margin-top: 5vh; /* Ridotto da 20vh a 5vh per essere più vicino all'immagine */
-}
-
-.page-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #1d1d1f;
-  font-weight: 600;
-}
-
-.content-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #444;
-}
-
-.time-entry {
-  margin: 1rem 0;
-  padding: 1rem;
-  background: rgba(240, 240, 240, 0.5);
-  border-radius: 10px;
-  border-left: 4px solid #1d1d1f;
 }
 
 /* SEZIONI */

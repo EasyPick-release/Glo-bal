@@ -20,6 +20,9 @@
   <!-- Limone che rotola -->
   <div class="lemon" id="lemon"></div>
 
+  <!-- Overlay per transizioni -->
+  <div class="transition-overlay" id="transitionOverlay"></div>
+
   <!-- Hamburger Menu -->
   <div class="hamburger-menu" id="hamburger">
     <span></span>
@@ -29,33 +32,34 @@
 
   <!-- Navigazione (nascosta di default) -->
   <nav class="page-nav" id="pageNav">
-    <button class="nav-btn active" data-page="0">Home</button>
-    <button class="nav-btn" data-page="1">Programma</button>
-    <button class="nav-btn" data-page="2">Location</button>
-    <button class="nav-btn" data-page="3">Come arrivare</button>
-    <button class="nav-btn" data-page="4">Dress Code</button>
-    <button class="nav-btn" data-page="5">Lista Nozze</button>
-    <button class="nav-btn" data-page="6">RSVP</button>
+    <button class="nav-btn active" data-section="0">Home</button>
+    <button class="nav-btn" data-section="1">Programma</button>
+    <button class="nav-btn" data-section="2">Location</button>
+    <button class="nav-btn" data-section="3">Come arrivare</button>
+    <button class="nav-btn" data-section="4">Dress Code</button>
+    <button class="nav-btn" data-section="5">Lista Nozze</button>
+    <button class="nav-btn" data-section="6">RSVP</button>
   </nav>
 
-  <header class="hero">
-    <img src="assets/intro1.PNG" alt="Noi" id="heroImage"/>
-    <div class="hero-text">
-      <h1>Glo e Andre si sposano</h1>
-      <p></p>
-      <span>18 Luglio 2026</span>
-    </div>
-  </header>
-
-  <main class="page-container">
-    <!-- Pagina 0: Home (solo foto) -->
-    <section class="page active home-page" data-page="0" data-image="assets/intro1.PNG">
-      <!-- Solo la foto per la home -->
+  <main class="sections-container">
+    <!-- Sezione 0: Home (solo foto) -->
+    <section class="section-page home-section" id="section-0" data-image="assets/intro1.PNG">
+      <div class="section-image">
+        <img src="assets/intro1.PNG" alt="Noi" id="heroImage"/>
+        <div class="hero-text">
+          <h1>Glo e Andre si sposano</h1>
+          <p></p>
+          <span>18 Luglio 2026</span>
+        </div>
+      </div>
     </section>
 
-    <!-- Pagina 1: Programma -->
-    <section class="page" data-page="1" data-image="assets/programma.jpg">
-      <div class="page-content">
+    <!-- Sezione 1: Programma -->
+    <section class="section-page" id="section-1" data-image="assets/programma.jpg">
+      <div class="section-image">
+        <img src="assets/programma.jpg" alt="Programma" />
+      </div>
+      <div class="section-content">
         <h2>Programma della giornata</h2>
         <div class="content-text">
           <div class="time-entry"><strong>16:00</strong> - Cerimonia presso il Duomo di San Pietro Ragusa</div>
@@ -66,9 +70,12 @@
       </div>
     </section>
 
-    <!-- Pagina 2: Location -->
-    <section class="page" data-page="2" data-image="assets/location.jpg">
-      <div class="page-content">
+    <!-- Sezione 2: Location -->
+    <section class="section-page" id="section-2" data-image="assets/location.jpg">
+      <div class="section-image">
+        <img src="assets/location.jpg" alt="Location" />
+      </div>
+      <div class="section-content">
         <h2>Location</h2>
         <div class="content-text">
           <p>La festa si terrà presso Villa Gisana, immersa nel verde delle colline toscane. Un luogo magico dove celebrare l'inizio della nostra nuova vita insieme.</p>
@@ -76,9 +83,12 @@
       </div>
     </section>
 
-    <!-- Pagina 3: Come raggiungerci -->
-    <section class="page" data-page="3" data-image="assets/mappa.PNG">
-      <div class="page-content">
+    <!-- Sezione 3: Come raggiungerci -->
+    <section class="section-page" id="section-3" data-image="assets/etna_voli_sicilia_catania.jpg">
+      <div class="section-image">
+        <img src="assets/etna_voli_sicilia_catania.jpg" alt="Mappa" />
+      </div>
+      <div class="section-content">
         <h2>Come raggiungerci</h2>
         <div class="content-text">
           <p>La villa si trova a soli 15 minuti dal centro città. Sarà disponibile un servizio navetta gratuito dalla stazione. Per chi arriva in auto, c'è un ampio parcheggio privato.</p>
@@ -86,9 +96,12 @@
       </div>
     </section>
 
-    <!-- Pagina 4: Dress Code -->
-    <section class="page" data-page="4" data-image="assets/dresscode.jpg">
-      <div class="page-content">
+    <!-- Sezione 4: Dress Code -->
+    <section class="section-page" id="section-4" data-image="assets/dresscode.jpg">
+      <div class="section-image">
+        <img src="assets/dresscode.jpg" alt="Dress Code" />
+      </div>
+      <div class="section-content">
         <h2>Dress Code</h2>
         <div class="content-text">
           <p>L'abbigliamento richiesto è elegante. Vi consigliamo colori chiari e leggeri. Evitate il bianco, quello è riservato alla sposa! 😊</p>
@@ -96,9 +109,12 @@
       </div>
     </section>
 
-    <!-- Pagina 5: Lista nozze -->
-    <section class="page" data-page="5" data-image="assets/lista.PNG">
-      <div class="page-content">
+    <!-- Sezione 5: Lista nozze -->
+    <section class="section-page" id="section-5" data-image="assets/australia.jpg">
+      <div class="section-image">
+        <img src="assets/australia.jpg" alt="Lista Nozze" />
+      </div>
+      <div class="section-content">
         <h2>Lista nozze</h2>
         <div class="content-text">
           <p>La vostra presenza è il regalo più bello che potremmo ricevere. Per chi volesse comunque farci un dono, abbiamo preparato una lista presso i principali negozi della città.</p>
@@ -106,9 +122,12 @@
       </div>
     </section>
 
-    <!-- Pagina 6: RSVP -->
-    <section class="page" data-page="6" data-image="assets/rsvp.PNG">
-      <div class="page-content">
+    <!-- Sezione 6: RSVP -->
+    <section class="section-page" id="section-6" data-image="assets/rsvp.PNG">
+      <div class="section-image">
+        <img src="assets/rsvp.PNG" alt="RSVP" />
+      </div>
+      <div class="section-content">
         <h2>Conferma la partecipazione</h2>
         <div class="content-text">
           <p>Vi chiediamo gentilmente di confermare la presenza entro il 31 Agosto.</p>
@@ -124,6 +143,6 @@
     <p>Con affetto, Andrea & Gloria</p>
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main-new.js"></script>
 </body>
 </html>
