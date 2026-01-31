@@ -156,6 +156,81 @@ document.addEventListener("DOMContentLoaded", () => {
   updateVideoTime();
   updateLemonPosition();
 
+  // NAVIGAZIONE PAGINE CON EFFETTI DI DISSOLVENZA
+  const navButtons = document.querySelectorAll('.nav-btn');
+  const pages = document.querySelectorAll('.page');
+  let currentPageIndex = 0;
+
+  function showPage(pageIndex) {
+    // Nascondi la pagina corrente
+    pages[currentPageIndex].classList.remove('active');
+    navButtons[currentPageIndex].classList.remove('active');
+    
+    // Mostra la nuova pagina dopo un piccolo ritardo per l'effetto
+    setTimeout(() => {
+      pages[pageIndex].classList.add('active');
+      navButtons[pageIndex].classList.add('active');
+      currentPageIndex = pageIndex;
+    }, 100);
+  }
+
+  // Aggiungi event listeners ai pulsanti di navigazione
+  navButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      if (index !== currentPageIndex) {
+        showPage(index);
+      }
+    });
+  });
+
+  // Navigazione con le frecce della tastiera
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && currentPageIndex < pages.length - 1) {
+      showPage(currentPageIndex + 1);
+    } else if (e.key === 'ArrowLeft' && currentPageIndex > 0) {
+      showPage(currentPageIndex - 1);
+    }
+  });
+
+  // Cambio automatico delle pagine ogni 10 secondi (opzionale)
+  let autoSlideInterval;
+  
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+      const nextPage = (currentPageIndex + 1) % pages.length;
+      showPage(nextPage);
+    }, 8000); // 8 secondi
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+    }
+  }
+
+  // Avvia il cambio automatico dopo 3 secondi di inattività
+  let inactivityTimer;
+  
+  function resetInactivityTimer() {
+    stopAutoSlide();
+    clearTimeout(inactivityTimer);
+    
+    inactivityTimer = setTimeout(() => {
+      startAutoSlide();
+    }, 3000);
+  }
+
+  // Reset timer su interazione utente
+  navButtons.forEach(button => {
+    button.addEventListener('click', resetInactivityTimer);
+  });
+  
+  document.addEventListener('keydown', resetInactivityTimer);
+  document.addEventListener('mousemove', resetInactivityTimer);
+
+  // Avvia il timer iniziale
+  resetInactivityTimer();
+
   // Qui in futuro:
   // - validazioni
   // - gestione form

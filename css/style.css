@@ -58,6 +58,18 @@ body::before {
   object-fit: cover;
 }
 
+/* Sfumatura nella parte inferiore della foto principale */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+  pointer-events: none;
+}
+
 .hero-text {
   position: absolute;
   bottom: 2rem;
@@ -80,6 +92,61 @@ body::before {
   opacity: 0.8;
 }
 
+/* NAVIGAZIONE PAGINE */
+.page-nav {
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 100;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+.nav-btn.active {
+  background: rgba(29, 29, 31, 0.9);
+  color: white;
+}
+
+/* CONTAINER PAGINE */
+.page-container {
+  position: relative;
+  min-height: 50vh;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  transform: translateY(20px);
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 /* SEZIONI */
 .section {
   max-width: 800px;
@@ -95,6 +162,26 @@ body::before {
 .section p {
   font-size: 1.1rem;
   color: #444;
+}
+
+/* Responsive per dispositivi mobili */
+@media (max-width: 768px) {
+  .page-nav {
+    position: fixed;
+    bottom: 2rem;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 90vw;
+    gap: 0.3rem;
+  }
+  
+  .nav-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 /* FORM PLACEHOLDER */
