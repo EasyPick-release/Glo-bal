@@ -302,22 +302,50 @@ body::before {
     right: 1rem;
   }
   
-  .page-content {
-    padding: 2rem 1.5rem;
-    margin-top: 2vh; /* Ancora più vicino su mobile */
+  /* Hero text più piccolo su mobile */
+  .hero-text h1 {
+    font-size: 2rem;
   }
   
-  .page-content h2 {
+  .hero-text p {
+    font-size: 1.2rem;
+  }
+  
+  .hero-text {
+    bottom: 1rem;
+    left: 1rem;
+  }
+  
+  /* Immagini più piccole su mobile per dare spazio al contenuto */
+  .section-page:not(.home-section) .section-image {
+    height: 50vh;
+  }
+  
+  /* Contenuto adattato per mobile */
+  .section-content {
+    padding: 1.5rem;
+    margin: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  .section-content h2 {
     font-size: 2rem;
+    margin-bottom: 1rem;
   }
   
   .content-text {
     font-size: 1.1rem;
+    line-height: 1.6;
   }
   
   .nav-btn {
     font-size: 0.9rem;
     padding: 0.6rem 1rem;
+  }
+  
+  .time-entry {
+    padding: 0.8rem;
+    margin: 0.6rem 0;
   }
 }
 
