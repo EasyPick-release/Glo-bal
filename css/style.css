@@ -13,6 +13,12 @@ body {
   position: relative;
 }
 
+/* Blocca scroll quando è attiva la home page */
+body.home-active {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* VIDEO DI SFONDO - Tutti i dispositivi */
 #background-video {
   position: fixed;
@@ -50,6 +56,17 @@ body::before {
   position: relative;
   height: 70vh;
   overflow: hidden;
+  transition: height 0.6s ease;
+}
+
+/* Hero a schermo intero quando è attiva la home page */
+body.home-active .hero {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
 }
 
 .hero img {
@@ -59,16 +76,14 @@ body::before {
   transition: opacity 0.4s ease;
 }
 
-/* Sfumatura nella parte inferiore della foto principale */
+/* Sfumatura nella parte inferiore della foto principale - DISABILITATA */
 .hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
-  pointer-events: none;
+  display: none;
+}
+
+/* Nascondi sfumatura nella home page - NON PIÙ NECESSARIO */
+body.home-active .hero::after {
+  display: none;
 }
 
 .hero-text {
@@ -101,7 +116,7 @@ body::before {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  z-index: 200;
+  z-index: 300;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -138,7 +153,7 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  z-index: 150;
+  z-index: 250;
   transition: right 0.4s ease;
   background: rgba(255, 255, 255, 0.95);
   padding: 1.5rem;
@@ -213,7 +228,7 @@ body::before {
   border-radius: 20px;
   backdrop-filter: blur(15px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  margin-top: 20vh; /* Spazio dall'header */
+  margin-top: 5vh; /* Ridotto da 20vh a 5vh per essere più vicino all'immagine */
 }
 
 .page-content h2 {
@@ -274,7 +289,7 @@ body::before {
   
   .page-content {
     padding: 2rem 1.5rem;
-    margin-top: 15vh;
+    margin-top: 2vh; /* Ancora più vicino su mobile */
   }
   
   .page-content h2 {

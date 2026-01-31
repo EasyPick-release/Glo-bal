@@ -142,6 +142,37 @@ document.addEventListener("DOMContentLoaded", () => {
   function onScroll() {
     updateVideoTime();
     updateLemonPosition();
+    
+    // NAVIGAZIONE PAGINE CON SCROLL (solo se non siamo sulla home)
+    if (currentPageIndex !== 0) {
+      handleScrollNavigation();
+    }
+  }
+  
+  // Gestione navigazione con scroll tra le pagine
+  let scrollTimeout;
+  let isScrolling = false;
+  
+  function handleScrollNavigation() {
+    if (isScrolling) return;
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      
+      // Calcola quale pagina dovrebbe essere attiva basandosi sullo scroll
+      const targetPage = Math.round(scrollPercent * (pages.length - 1));
+      
+      if (targetPage !== currentPageIndex && targetPage >= 1) {
+        isScrolling = true;
+        showPage(targetPage);
+        
+        // Reset flag dopo la transizione
+        setTimeout(() => {
+          isScrolling = false;
+        }, 1000);
+      }
+    }, 150); // Debounce per evitare troppi cambi rapidi
   }
 
   // Listener per ridimensionamento finestra
@@ -186,6 +217,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Nascondi la pagina corrente
     pages[currentPageIndex].classList.remove('active');
     navButtons[currentPageIndex].classList.remove('active');
+    
+    // Gestisci la modalità home (schermo intero, no scroll)
+    if (pageIndex === 0) {
+      // Attiva modalità home
+      document.body.classList.add('home-active');
+    } else {
+      // Disattiva modalità home
+      document.body.classList.remove('home-active');
+    }
     
     // Cambia l'immagine dell'header basandosi sulla pagina selezionata
     const selectedPage = pages[pageIndex];
@@ -270,6 +310,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Avvia il timer iniziale
   resetInactivityTimer();
+  
+  // Inizializza la modalità home (dato che partiamo dalla pagina 0)
+  document.body.classList.add('home-active');
 
   // Qui in futuro:
   // - validazioni
