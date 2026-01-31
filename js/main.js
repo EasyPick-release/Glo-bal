@@ -156,7 +156,28 @@ document.addEventListener("DOMContentLoaded", () => {
   updateVideoTime();
   updateLemonPosition();
 
-  // NAVIGAZIONE PAGINE CON EFFETTI DI DISSOLVENZA
+  // HAMBURGER MENU
+  const hamburger = document.getElementById('hamburger');
+  const pageNav = document.getElementById('pageNav');
+  const heroImage = document.getElementById('heroImage');
+  let menuOpen = false;
+
+  hamburger.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    hamburger.classList.toggle('active');
+    pageNav.classList.toggle('show');
+  });
+
+  // Chiudi menu quando si clicca fuori
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !pageNav.contains(e.target) && menuOpen) {
+      menuOpen = false;
+      hamburger.classList.remove('active');
+      pageNav.classList.remove('show');
+    }
+  });
+
+  // NAVIGAZIONE PAGINE CON EFFETTI DI DISSOLVENZA E CAMBIO FOTO
   const navButtons = document.querySelectorAll('.nav-btn');
   const pages = document.querySelectorAll('.page');
   let currentPageIndex = 0;
@@ -166,11 +187,30 @@ document.addEventListener("DOMContentLoaded", () => {
     pages[currentPageIndex].classList.remove('active');
     navButtons[currentPageIndex].classList.remove('active');
     
+    // Cambia l'immagine dell'header basandosi sulla pagina selezionata
+    const selectedPage = pages[pageIndex];
+    const imageUrl = selectedPage.getAttribute('data-image');
+    
+    if (imageUrl && heroImage) {
+      heroImage.style.opacity = '0';
+      setTimeout(() => {
+        heroImage.src = imageUrl;
+        heroImage.style.opacity = '1';
+      }, 200);
+    }
+    
     // Mostra la nuova pagina dopo un piccolo ritardo per l'effetto
     setTimeout(() => {
       pages[pageIndex].classList.add('active');
       navButtons[pageIndex].classList.add('active');
       currentPageIndex = pageIndex;
+      
+      // Chiudi il menu dopo la selezione
+      if (menuOpen) {
+        menuOpen = false;
+        hamburger.classList.remove('active');
+        pageNav.classList.remove('show');
+      }
     }, 100);
   }
 

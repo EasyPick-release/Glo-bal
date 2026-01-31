@@ -56,6 +56,7 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.4s ease;
 }
 
 /* Sfumatura nella parte inferiore della foto principale */
@@ -92,16 +93,62 @@ body::before {
   opacity: 0.8;
 }
 
-/* NAVIGAZIONE PAGINE */
+/* HAMBURGER MENU */
+.hamburger-menu {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* NAVIGAZIONE PAGINE (nascosta di default) */
 .page-nav {
   position: fixed;
   top: 50%;
-  right: 2rem;
+  right: -300px; /* Nascosta inizialmente */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  z-index: 100;
+  z-index: 150;
+  transition: right 0.4s ease;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.page-nav.show {
+  right: 2rem;
 }
 
 .nav-btn {
@@ -135,16 +182,59 @@ body::before {
 .page {
   position: absolute;
   width: 100%;
+  height: 100vh;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
   transform: translateY(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .page.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* HOME PAGE - Solo foto */
+.home-page {
+  background: none;
+}
+
+/* CONTENUTO PAGINE */
+.page-content {
+  max-width: 800px;
+  width: 90%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-top: 20vh; /* Spazio dall'header */
+}
+
+.page-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
+.content-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.time-entry {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(240, 240, 240, 0.5);
+  border-radius: 10px;
+  border-left: 4px solid #1d1d1f;
 }
 
 /* SEZIONI */
@@ -166,21 +256,38 @@ body::before {
 
 /* Responsive per dispositivi mobili */
 @media (max-width: 768px) {
+  .hamburger-menu {
+    top: 1rem;
+    right: 1rem;
+    width: 25px;
+    height: 25px;
+  }
+  
   .page-nav {
-    position: fixed;
-    bottom: 2rem;
-    right: 50%;
-    transform: translateX(50%);
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 90vw;
-    gap: 0.3rem;
+    right: -280px;
+    padding: 1rem;
+  }
+  
+  .page-nav.show {
+    right: 1rem;
+  }
+  
+  .page-content {
+    padding: 2rem 1.5rem;
+    margin-top: 15vh;
+  }
+  
+  .page-content h2 {
+    font-size: 2rem;
+  }
+  
+  .content-text {
+    font-size: 1.1rem;
   }
   
   .nav-btn {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
   }
 }
 
