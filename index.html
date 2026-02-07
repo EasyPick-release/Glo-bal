@@ -1,163 +1,55 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Il nostro matrimonio</title>
-
+  <title>Glo e Andre si sposano</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
 
+  <!-- Sezione Video Intro -->
+  <section class="video-section" id="videoSection">
+    <div class="video-container">
+      <video id="introVideo" muted autoplay loop>
+        <source src="assets/MicrosoftTeams.mp4" type="video/mp4">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        Il tuo browser non supporta i video HTML5.
+      </video>
+    </div>
+  </section>
 
-  <!-- Overlay per transizioni -->
-  <div class="transition-overlay" id="transitionOverlay"></div>
+  <!-- Sezione Dettagli -->
+  <section class="details-section" id="detailsSection">
+    <div class="details-container">
+      <div class="hero-content">
+        <h1>Glo e Andre si sposano</h1>
+        <p class="wedding-date">18 Luglio 2026</p>
+        <div class="wedding-details">
+          <p>Siamo felici di annunciarvi che finalmente abbiamo scelto data e location! Abbiamo scelto di sposarci il 18 Luglio 2026 a Modica, Patrimonio dell'UNESCO e conosciuta anche come la città delle cento chiese (ma tranquilli, ne abbiamo scelta solo una!) e, naturalmente, la patria del cioccolato più antico e granuloso del mondo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Hamburger Menu -->
-  <div class="hamburger-menu" id="hamburger">
+  <!-- Hamburger Menu (appare solo nella sezione dettagli) -->
+  <div class="hamburger-menu" id="hamburger" style="display: none;">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- Navigazione (nascosta di default) -->
+  <!-- Menu Navigazione -->
   <nav class="page-nav" id="pageNav">
-    <button class="nav-btn active" data-section="0">Home</button>
-    <button class="nav-btn" data-section="1">Programma</button>
-    <button class="nav-btn" data-section="2">Location</button>
-    <button class="nav-btn" data-section="3">Come arrivare</button>
-    <button class="nav-btn" data-section="4">Dress Code</button>
-    <button class="nav-btn" data-section="5">Lista Nozze</button>
-    <button class="nav-btn" data-section="6">RSVP</button>
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="programma.html" class="nav-link">Programma</a>
+    <a href="location.html" class="nav-link">Location</a>
+    <a href="come-arrivare.html" class="nav-link">Come arrivare</a>
+    <a href="dress-code.html" class="nav-link">Dress Code</a>
+    <a href="lista-nozze.html" class="nav-link">Lista Nozze</a>
+    <a href="rsvp.html" class="nav-link">RSVP</a>
   </nav>
 
-  <main class="sections-container">
-    <!-- Sezione 0: Home (solo foto) -->
-    <section class="section-page home-section" id="section-0" data-image="assets/intro1.PNG">
-      <div class="section-image">
-        <img src="assets/intro1.PNG" alt="Noi" id="heroImage" />
-        <div class="hero-text">
-          <h1>Glo e Andre si sposano</h1>
-          <p></p>
-          <span>18 Luglio 2026</span>
-        </div>
-        <div class="section-content-home">
-          <div class="content-text">
-            <p>Siamo felici di annunciarvi che finalmente abbiamo scelto data e location! Abbiamo scelto di sposarci il
-              18 Luglio 2026 a Modica, Patrimonio dell'UNESCO e conosciuta anche come la città delle cento chiese (ma
-              tranquilli, ne abbiamo scelta solo una!) e, naturalmente, la patria del cioccolato più antico e granuloso
-              del mondo</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sezione 1: Programma -->
-    <section class="section-page" id="section-1" data-image="assets/programma.jpg">
-      <div class="section-image">
-        <img src="assets/programma.jpg" alt="Programma" />
-      </div>
-      <div class="section-content">
-        <h2>Location</h2>
-        <div class="content-text">
-          <p>Siamo felici di annunciarvi che finalmente abbiamo scelto data e location! Abbiamo scelto di sposarci il 18
-            Luglio 2026 a Modica, Patrimonio dell'UNESCO e conosciuta anche come la città delle cento chiese (ma
-            tranquilli, ne abbiamo scelta solo una!) e, naturalmente, la patria del cioccolato più antico e granuloso
-            del mondo</p>
-        </div>
-      </div>
-      <!--div class="section-content">
-        <h2>Programma della giornata</h2>
-        <div class="content-text">
-          <div class="time-entry"><strong>16:00</strong> - Cerimonia presso il Duomo di San Pietro Ragusa</div>
-          <div class="time-entry"><strong>18:00</strong> - Cocktail di benvenuto</div>
-          <div class="time-entry"><strong>20:00</strong> - Cena</div>
-          <div class="time-entry"><strong>23:00</strong> - Taglio della torta e balli</div>
-        </div>
-      </div-->
-    </section>
-
-    <!-- Sezione 2: Location -->
-    <section class="section-page" id="section-2" data-image="assets/location.jpg">
-      <div class="section-image">
-        <img src="assets/location.jpg" alt="Location" />
-      </div>
-      <div class="section-content">
-        <h2>Location</h2>
-        <div class="content-text">
-          <p>La festa si terrà presso Villa Gisana, immersa nel verde delle colline toscane. Un luogo magico dove
-            celebrare l'inizio della nostra nuova vita insieme.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sezione 3: Come raggiungerci -->
-    <section class="section-page" id="section-3" data-image="assets/etna_voli_sicilia_catania.jpg">
-      <div class="section-image">
-        <img src="assets/etna_voli_sicilia_catania.jpg" alt="Mappa" />
-      </div>
-      <div class="section-content">
-        <h2>Come raggiungerci</h2>
-        <div class="content-text">
-          <p>La villa si trova a soli 15 minuti dal centro città. Sarà disponibile un servizio navetta gratuito dalla
-            stazione. Per chi arriva in auto, c'è un ampio parcheggio privato.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sezione 4: Dress Code -->
-    <section class="section-page" id="section-4" data-image="assets/dresscode.jpg">
-      <div class="section-image">
-        <img src="assets/dresscode.jpg" alt="Dress Code" />
-      </div>
-      <div class="section-content">
-        <h2>Dress Code</h2>
-        <div class="content-text">
-          <p>L'abbigliamento richiesto è elegante. Vi consigliamo colori chiari e leggeri. Evitate il bianco, quello è
-            riservato alla sposa! 😊</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sezione 5: Lista nozze -->
-    <section class="section-page" id="section-5" data-image="assets/australia.jpg">
-      <div class="section-image">
-        <img src="assets/australia.jpg" alt="Lista Nozze" />
-      </div>
-      <div class="section-content">
-        <h2>Lista nozze</h2>
-        <div class="content-text">
-          <p>La vostra presenza è il regalo più bello che potremmo ricevere. Per chi volesse comunque farci un dono,
-            abbiamo preparato una lista presso i principali negozi della città.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sezione 6: RSVP -->
-    <section class="section-page" id="section-6" data-image="assets/rsvp.PNG">
-      <div class="section-image">
-        <img src="assets/rsvp.PNG" alt="RSVP" />
-      </div>
-      <div class="section-content">
-        <h2>Conferma la partecipazione</h2>
-        <div class="content-text">
-          <p>Vi chiediamo gentilmente di confermare la presenza entro il 31 Agosto.</p>
-          <div class="form-placeholder">
-            <p>📩 Form di conferma in arrivo</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Con affetto, Andrea & Gloria</p>
-  </footer>
-
-  <script type="module" src="js/main-new.js"></script>
+  <script src="js/main.js"></script>
 </body>
-
 </html>

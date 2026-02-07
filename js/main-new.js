@@ -92,29 +92,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // Navigazione con rotella mouse
   let wheelTimeout;
   let wheelDelta = 0;
-  document.addEventListener('wheel', (e) => {
-    if (isTransitioning) {
-      e.preventDefault();
-      return;
-    }
-    
-    wheelDelta += e.deltaY;
-    
-    clearTimeout(wheelTimeout);
-    wheelTimeout = setTimeout(() => {
-      if (Math.abs(wheelDelta) > 500) {
-        e.preventDefault();
-        
-        if (wheelDelta > 0 && currentSectionIndex < sections.length - 1) {
-          showSection(currentSectionIndex + 1);
-        } else if (wheelDelta < 0 && currentSectionIndex > 0) {
-          showSection(currentSectionIndex - 1);
-        }
-        wheelDelta = 0;
-      }
-    }, 150);
-  }, { passive: false });
-
+  //document.addEventListener('wheel', (e) => {
+  //  if (isTransitioning) {
+  //    e.preventDefault();
+  //    return;
+  //  }
+  //  
+  //  wheelDelta += e.deltaY;
+  //  
+  //  clearTimeout(wheelTimeout);
+  //  wheelTimeout = setTimeout(() => {
+  //    if (Math.abs(wheelDelta) > 500) {
+  //      e.preventDefault();
+  //      
+  //      if (wheelDelta > 0 && currentSectionIndex < sections.length - 1) {
+  //        showSection(currentSectionIndex + 1);
+  //      } else if (wheelDelta < 0 && currentSectionIndex > 0) {
+  //        showSection(currentSectionIndex - 1);
+  //      }
+  //      wheelDelta = 0;
+  //    }
+  //  }, 150);
+  //}, { passive: false });
+//
   // Inizializzazione
   if (sections.length > 0) {
     sections[0].classList.add('active');
