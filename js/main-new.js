@@ -1,51 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Sito matrimonio caricato - Sistema PowerPoint");
 
-  // Video di sfondo bloccato sul primo frame
-  const backgroundVideo = document.getElementById('background-video');
 
-  if (backgroundVideo) {
-    backgroundVideo.addEventListener('loadedmetadata', () => {
-      console.log('✅ Video caricato - bloccato sul primo frame');
-      backgroundVideo.currentTime = 0;
-      backgroundVideo.pause();
-    });
-
-    backgroundVideo.addEventListener('error', (e) => {
-      console.error('Errore caricamento video:', e);
-      document.body.style.background = "#ffffff url('assets/tovaglia2.jpg')";
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundPosition = "center";
-    });
-  }
-
-  // Limone che rotola
-  const lemon = document.getElementById('lemon');
-  
-  function updateLemonPosition() {
-    if (!lemon) return;
-    
-    const scrollHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight * 2);
-    const scrollPercent = window.scrollY / (scrollHeight - window.innerHeight);
-    const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
-    
-    const startX = window.innerWidth - 100;
-    const startY = 30;
-    const endX = window.innerWidth + 80;
-    const endY = window.innerHeight - 100;
-    
-    const currentX = startX + (endX - startX) * clampedPercent;
-    const arcHeight = 150;
-    const currentY = startY + (endY - startY) * clampedPercent + Math.sin(clampedPercent * Math.PI) * arcHeight;
-    const rotation = clampedPercent * 720;
-    
-    lemon.style.left = `${currentX}px`;
-    lemon.style.top = `${currentY}px`;
-    lemon.style.transform = `rotate(${rotation}deg)`;
-  }
-
-  window.addEventListener('scroll', updateLemonPosition);
-  window.addEventListener('resize', updateLemonPosition);
+  //window.addEventListener('scroll', updateLemonPosition);
+  //window.addEventListener('resize', updateLemonPosition);
 
   // HAMBURGER MENU
   const hamburger = document.getElementById('hamburger');
@@ -165,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     navButtons[0].classList.add('active');
   }
   
-  updateLemonPosition();
 
   console.log('✅ Sistema PowerPoint inizializzato!');
   console.log('Sezioni disponibili:', sections.length);
