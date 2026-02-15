@@ -5,41 +5,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById('hamburger');
   const pageNav = document.getElementById('pageNav');
   const detailsSection = document.getElementById('detailsSection');
+  const introVideo = document.getElementById('introVideo');
   let menuOpen = false;
 
-  // Interseztion Observer per gestire la visibilità del menu hamburger
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.3 // Il menu appare quando il 30% della sezione è visibile
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.target.id === 'detailsSection') {
-        if (entry.isIntersecting) {
-          // Mostra il menu hamburger quando arriviamo alla sezione dettagli
-          hamburger.style.display = 'flex';
-          hamburger.classList.add('visible');
-          console.log('📱 Menu hamburger ora visibile');
-        } else {
-          // Nascondi il menu hamburger quando non siamo nella sezione dettagli  
-          hamburger.style.display = 'none';
-          hamburger.classList.remove('visible');
-          // Chiudi il menu se è aperto
-          if (menuOpen) {
-            toggleMenu();
-          }
-          console.log('📱 Menu hamburger nascosto');
-        }
-      }
+  // === AUTO-SCROLL ALLA FINE DEL VIDEO ===
+  if (introVideo) {
+    introVideo.addEventListener('ended', () => {
+      console.log('🎬 Video terminato, sblocco scroll e avvio auto-scroll...');
+      
+      // Sblocca lo scroll
+      document.body.classList.remove('scroll-locked');
+      console.log('🔓 Scroll sbloccato');
+      
+      // Piccolo delay per assicurarsi che lo scroll sia abilitato
+      setTimeout(() => {
+        // Scroll smooth verso la sezione dettagli
+        detailsSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        console.log('📍 Scroll automatico verso la sezione dettagli');
+      }, 100);
     });
-  }, observerOptions);
 
-  // Avvia l'osservazione della sezione dettagli
-  if (detailsSection) {
-    observer.observe(detailsSection);
+    // Log quando il video è pronto
+    introVideo.addEventListener('loadeddata', () => {
+      console.log('🎥 Video intro caricato correttamente');
+    });
+    
+    introVideo.addEventListener('error', (e) => {
+      console.error('Errore caricamento video:', e);
+    });
   }
+
+  // L'hamburger menu è sempre visibile
 
   // Gestione del menu hamburger
   function toggleMenu() {
@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Gestione del video intro (opzionale: pausa/play on hover)
-  const introVideo = document.getElementById('introVideo');
   if (introVideo) {
     introVideo.addEventListener('error', (e) => {
       console.error('Errore caricamento video:', e);

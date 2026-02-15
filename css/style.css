@@ -13,6 +13,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Blocco scroll durante il video */
+body.scroll-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* === PAGINA PRINCIPALE - INDEX === */
 
 /* Sezione Video */
@@ -29,9 +35,9 @@ body {
   width: 100%;
   max-width: 1200px;
   aspect-ratio: 16/9;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+  
 }
 
 #introVideo {
@@ -43,7 +49,7 @@ body {
 /* Sezione Dettagli */
 .details-section {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #ECEAE4 0%, #e3e0d8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,30 +57,88 @@ body {
 }
 
 .details-container {
-  max-width: 1000px;
+  max-width: 1400px;
   width: 100%;
-  text-align: center;
+  padding: 0 2rem;
 }
 
-.hero-content h1 {
-  font-size: 4rem;
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px 1fr;
+  gap: 3rem;
+  align-items: center;
+  min-height: 400px;
+}
+
+.title-column {
+  text-align: left;
+}
+
+.title-column h1 {
+  font-size: 3.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: #1d1d1f;
+  line-height: 1.2;
 }
 
-.wedding-date {
+.title-column .wedding-date {
   font-size: 2rem;
   color: #666;
-  margin-bottom: 2rem;
+  margin: 0;
 }
 
-.wedding-details p {
-  font-size: 1.3rem;
-  line-height: 1.8;
+.photo-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-photo {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.text-column {
+  text-align: left;
+}
+
+.text-column .wedding-details p {
+  font-size: 0.95rem;
+  line-height: 1.7;
   color: #444;
-  max-width: 800px;
-  margin: 0 auto;
+  margin: 0 0 1.5rem 0;
+}
+
+.text-column .wedding-details p:last-child {
+  margin-bottom: 0;
+}
+
+/* Sezione Foto */
+.photos-section {
+  background: #000000;
+  padding: 0;
+}
+
+.photos-container {
+  display: flex;
+  width: 100%;
+  height: 50vh;
+  min-height: 400px;
+}
+
+.photo-left,
+.photo-right {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-left {
+  border-right: 1px solid #333;
 }
 
 /* Hamburger Menu */
@@ -86,7 +150,7 @@ body {
   height: 30px;
   cursor: pointer;
   z-index: 300;
-  display: none; /* Inizialmente nascosto */
+  display: flex; /* Sempre visibile */
   flex-direction: column;
   justify-content: space-around;
   transition: all 0.3s ease;
@@ -189,6 +253,8 @@ body {
 /* Contenuto principale */
 .page-content {
   padding-top: 5rem;
+    background: linear-gradient(135deg, #ECEAE4 0%, #e3e0d8 100%);
+
   min-height: 90vh;
   display: flex;
   align-items: center;
@@ -246,11 +312,37 @@ body {
 
 /* Navigazione tra pagine */
 .page-navigation {
-  background: #f8f9fa;
+  background: #dddbd3;
   padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.contact-info {
+  text-align: left;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
+  color: #1d1d1f;
+  font-weight: 500;
+}
+
+.page-navigation .rsvp-btn {
+  background: #1d1d1f;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.page-navigation .rsvp-btn:hover {
+  background: #333;
+  transform: translateY(-2px);
 }
 
 .page-navigation .nav-link {
@@ -274,20 +366,41 @@ body {
     padding: 1rem;
   }
   
-  .hero-content h1 {
+  .details-section {
+    padding: 2rem 1rem;
+  }
+  
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .title-column h1 {
     font-size: 2.5rem;
   }
   
-  .wedding-date {
+  .title-column .wedding-date {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
   
-  .wedding-details p {
-    font-size: 1.1rem;
+  .center-photo {
+    width: 300px;
+    height: 300px;
   }
   
-  .details-section {
-    padding: 2rem 1rem;
+  .text-column {
+    text-align: center;
+  }
+  
+  .text-column .wedding-details p {
+    font-size: 0.9rem;
+    margin: 0 0 1.2rem 0;
+  }
+  
+  .text-column .wedding-details p:last-child {
+    margin-bottom: 0;
   }
   
   .hamburger-menu {
@@ -306,7 +419,24 @@ body {
   .page-nav.show {
     right: 1rem;
   }
+
+  /* Sezione foto mobile */
+  .photos-container {
+    flex-direction: column;
+    height: auto;
+  }
   
+  .photo-left,
+  .photo-right {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .photo-left {
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+
   /* Pagine secondarie mobile */
   .content-row {
     grid-template-columns: 1fr;
@@ -325,6 +455,11 @@ body {
   .page-navigation {
     flex-direction: column;
     gap: 1rem;
+    text-align: center;
+  }
+  
+  .contact-info {
+    text-align: center;
   }
   
   .top-nav {
@@ -333,12 +468,17 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-content h1 {
+  .title-column h1 {
     font-size: 2rem;
   }
   
-  .wedding-date {
+  .title-column .wedding-date {
     font-size: 1.2rem;
+  }
+  
+  .center-photo {
+    width: 250px;
+    height: 250px;
   }
   
   .content-text h1 {

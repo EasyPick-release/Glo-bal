@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lista Nozze - Glo e Andre si sposano</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista Nozze - Glo e Andre si sposano</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body class="secondary-page">
 
-  <nav class="top-nav">
-    <a href="index.html" class="nav-back">← Torna alla Home</a>
-  </nav>
-
-  <main class="page-content">
-    <div class="content-row">
-      <div class="content-image">
-        <img src="assets/australia.jpg" alt="Lista Nozze" />
-      </div>
-      <div class="content-text">
-        <h1>Lista nozze</h1>
-        <div class="details">
-          <p>La vostra presenza è il regalo più bello che potremmo ricevere. Per chi volesse comunque farci un dono, abbiamo preparato una lista presso i principali negozi della città.</p>
-        </div>
-      </div>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-  </main>
 
-  <nav class="page-navigation">
-    <a href="dress-code.html" class="nav-link">← Dress Code</a>
-    <a href="rsvp.html" class="nav-link">RSVP →</a>
-  </nav>
+    <!-- Menu Navigazione -->
+    <nav class="page-nav" id="pageNav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="programma.html" class="nav-link">Programma</a>
+        <a href="location.html" class="nav-link">Location</a>
+        <a href="come-arrivare.html" class="nav-link">Come arrivare</a>
+        <a href="dress-code.html" class="nav-link">Dress Code</a>
+        <a href="lista-nozze.html" class="nav-link">Lista Nozze</a>
+        <a href="rsvp.html" class="nav-link">RSVP</a>
+    </nav>
 
+    <main class="page-content">
+        <div class="content-row">
+            <div class="content-image">
+                <img src="assets/australia.jpg" alt="Lista Nozze" />
+            </div>
+            <div class="content-text">
+                <h1>Lista nozze</h1>
+                <div class="details">
+                    <p>Festeggiare con noi è il regalo più importante. Tuttavia, se volesse regalarci qualcosa, non
+                        abbiamo bisogno di piatti e bicchieri (Gloria, da buona siciliana, ha tutto il corredo
+                        annesso!!)... ma di goderci una bella vacanza in Ausxx! Se volesse aiutarci a partire, potete
+                        farlo con un regalo 'in busta virtuale' qui:</p>
+                    <p>
+                        IBAN: [Il vostro codice]
+                        Intestato a: [Nome e Cognome]
+                        Causale consigliata: (es. "Regalo per [Vostri Nomi]")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="page-navigation">
+        <div class="contact-info">
+            <p><strong>Andre:</strong> +39 xxx xxx xxxx</p>
+            <p><strong>Glo:</strong> +39 xxx xxx xxxx</p>
+        </div>
+        <a href="rsvp.html" class="nav-link rsvp-btn">RSVP</a>
+    </nav>
+
+    <script src="js/main.js"></script>
 </body>
+
 </html>

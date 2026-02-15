@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glo e Andre si sposano</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
   <!-- Sezione Video Intro -->
   <section class="video-section" id="videoSection">
     <div class="video-container">
-      <video id="introVideo" muted autoplay loop>
-        <source src="assets/MicrosoftTeams.mp4" type="video/mp4">
-        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+      <video id="introVideo" muted autoplay>
+        <source src="assets/GLoeAndre.mp4" type="video/mp4">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          type="video/mp4">
         Il tuo browser non supporta i video HTML5.
       </video>
     </div>
@@ -22,18 +25,44 @@
   <!-- Sezione Dettagli -->
   <section class="details-section" id="detailsSection">
     <div class="details-container">
-      <div class="hero-content">
-        <h1>Glo e Andre si sposano</h1>
-        <p class="wedding-date">18 Luglio 2026</p>
-        <div class="wedding-details">
-          <p>Siamo felici di annunciarvi che finalmente abbiamo scelto data e location! Abbiamo scelto di sposarci il 18 Luglio 2026 a Modica, Patrimonio dell'UNESCO e conosciuta anche come la città delle cento chiese (ma tranquilli, ne abbiamo scelta solo una!) e, naturalmente, la patria del cioccolato più antico e granuloso del mondo.</p>
+      <div class="details-grid">
+        <div class="title-column">
+          <h1>Glo & Andre</h1>
+          <p class="wedding-date">18 Luglio 2026</p>
+        </div>
+        <div class="photo-column">
+          <img src="assets/foto-centro.jpg" alt="Glo e Andre" class="center-photo">
+        </div>
+        <div class="text-column">
+          <div class="wedding-details">
+            <p>Tutto ha inizio nel 2021, tra i corridoi di Vittuone. Glo è nel pieno del dramma "tesi", Andre, invece,
+              attraversa quegli stessi ambienti con la spensieratezza di chi lavora al service. Eppure i due, nonostante
+              la vicinanza, non si erano mai davvero parlati.</p>
+            <p>
+              A settembre il loro amico e collega Nico organizza un aperitivo in via Lario: quella sera, tra un brindisi
+              e l'altro, scatta qualcosa: le chiacchierate si allungano fino a notte fonda e quella che era nata come
+              una splendida amicizia, si trasforma in una complicità rara.
+            </p>
+            <p>
+              Dopo chilometri percorsi insieme e tantissimi sorrisi, Andre ha architettato il suo piano segreto e ha
+              fatto la proposta. E ora? Nel 2026 smettiamo di programmare robot e iniziamo a organizzare il nostro
+              matrimonio!</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Hamburger Menu (appare solo nella sezione dettagli) -->
-  <div class="hamburger-menu" id="hamburger" style="display: none;">
+  <!-- Sezione Foto -->
+  <section class="photos-section">
+    <div class="photos-container">
+      <img src="assets/foto1.png" alt="Glo e Andre 1" class="photo-left">
+      <img src="assets/foto2.jpg" alt="Glo e Andre 2" class="photo-right">
+    </div>
+  </section>
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
@@ -50,6 +79,15 @@
     <a href="rsvp.html" class="nav-link">RSVP</a>
   </nav>
 
+  <nav class="page-navigation">
+    <div class="contact-info">
+      <p><strong>Andre:</strong> +39 xxx xxx xxxx</p>
+      <p><strong>Glo:</strong> +39 xxx xxx xxxx</p>
+    </div>
+    <a href="rsvp.html" class="nav-link rsvp-btn">RSVP</a>
+  </nav>
+
   <script src="js/main.js"></script>
 </body>
+
 </html>
