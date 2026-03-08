@@ -344,7 +344,7 @@ body.scroll-locked {
 
 .nav-link {
   padding: 0.8rem 1.5rem;
-  background: #c99653;
+  background: #B69973;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   text-decoration: none;
@@ -408,6 +408,7 @@ body.scroll-locked {
   max-width: 1200px;
   width: 100%;
   padding: 2rem;
+  margin: 0 auto;
   align-items: center;
 }
 
@@ -553,6 +554,10 @@ body.scroll-locked {
     text-align: center;
   }
   
+  .title-column {
+    text-align: center;
+  }
+  
   .title-column h1 {
     font-size: 2.5rem;
   }
@@ -642,6 +647,39 @@ body.scroll-locked {
   .top-nav {
     padding: 1rem;
   }
+
+  /* Pagina Programma mobile */
+  .program-title-wrap {
+    padding-top: 0.5rem;
+  }
+
+  .program-title-image {
+    width: min(280px, 90vw);
+  }
+
+  .program-page-content .program-section {
+    margin: 12px 10px 30px !important;
+  }
+
+  .program-page-content .program-section .section-icon {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
+  .program-page-content .program-content {
+    max-width: 100% !important;
+    padding: 0 10px;
+  }
+
+  /* Gallery mobile */
+  .gallery-section > div {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .gallery-section img {
+    max-width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -660,5 +698,19 @@ body.scroll-locked {
   
   .content-text h1 {
     font-size: 1.5rem;
+  }
+
+  /* Programma extra small */
+  .program-page-content .program-section {
+    margin: 12px 5px 25px !important;
+  }
+
+  .program-page-content .program-section .section-icon {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .program-title-image {
+    width: min(240px, 95vw);
   }
 }
