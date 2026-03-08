@@ -186,7 +186,7 @@ body.scroll-locked {
 /* Sezione Dettagli */
 .details-section {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ECEAE4 0%, #e3e0d8 100%);
+  background: #ECEAE4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -393,8 +393,7 @@ body.scroll-locked {
 /* Contenuto principale */
 .page-content {
   padding-top: 5rem;
-    background: linear-gradient(135deg, #ECEAE4 0%, #e3e0d8 100%);
-
+    background: #ECEAE4;
   min-height: 90vh;
   display: flex;
   align-items: center;
@@ -430,6 +429,43 @@ body.scroll-locked {
   font-size: 1.2rem;
   line-height: 1.8;
   color: #444;
+}
+
+.program-main {
+  background: #ECEAE4;
+}
+
+.program-title-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.program-title-image {
+  width: min(360px, 80vw);
+  height: auto;
+  display: block;
+}
+
+/* Allineamento specifico per le card della pagina Programma */
+.program-page-content {
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+  min-height: auto;
+  align-items: flex-start;
+}
+
+.program-page-content .program-section {
+  margin: 12px 40px 40px !important;
+}
+
+.program-page-content .program-section:last-child {
+  margin-bottom: 8px !important;
+}
+
+.program-page-content .program-content h3:empty {
+  display: none;
 }
 
 /* Stili per programma */

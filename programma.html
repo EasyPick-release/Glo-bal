@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Programma - Glo e Andre si sposano</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body class="secondary-page">
 
   <!-- Hamburger Menu -->
@@ -18,7 +20,6 @@
   <!-- Menu Navigazione -->
   <nav class="page-nav" id="pageNav">
     <a href="index.html" class="nav-link">Home</a>
-    <a href="programma.html" class="nav-link">Programma</a>
     <a href="location.html" class="nav-link">Location</a>
     <a href="come-arrivare.html" class="nav-link">Come arrivare</a>
     <a href="dress-code.html" class="nav-link">Dress Code</a>
@@ -26,22 +27,84 @@
     <a href="rsvp.html" class="nav-link">RSVP</a>
   </nav>
 
-  <main class="page-content">
-    <div class="content-row">
-      <div class="content-image">
-        <img src="assets/programma.png" alt="Programma" />
-      </div>
-      <div class="content-text">
-        <h1>Programma della giornata</h1>
-        <div class="details">
-          <div class="time-entry"><strong>16:00</strong> - Cerimonia presso il Duomo di San Pietro Ragusa</div>
-          <div class="time-entry"><strong>18:00</strong> - Cocktail di benvenuto</div>
-          <div class="time-entry"><strong>20:00</strong> - Cena</div>
-          <div class="time-entry"><strong>23:00</strong> - Taglio della torta e balli</div>
-        </div>
-      </div>
+
+  <main class="program-main">
+
+    <div class="program-title-wrap" >
+      <img src="assets/title.png" alt="La giornata" class="program-title-image" />
     </div>
+
+    <section class="page-content program-page-content">
+
+      <!-- Sezione Cerimonia -->
+      <section class="program-section" style="margin: 40px;">
+        <div class="program-item" style="text-align: center;">
+          <div class="program-image" style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <img src="assets/sanpietro.png" alt="Cerimonia" class="section-icon"
+              style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
+          </div>
+          <div class="program-content" style="max-width: 400px; margin: 0 auto;">
+            <h2 style="font-family: '3ds Light', sans-serif;">Cerimonia</h2>
+            <h3 style="font-family: '3ds Light', sans-serif;">Duomo di San Pietro</h3>
+            <p style="font-family: 'Yu Gothic Light', sans-serif;">Si dice che salire quegli scalini sia il primo test
+              di resistenza per il matrimonio... noi siamo pronti
+              alla scalata, e voi?! La scalinata è uno spettacolo, sorvegliata dalle imponenti statue dei dodici
+              apostoli (che i modicani chiamano "i santon").</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sezione Post Cerimonia -->
+      <section class="program-section" style="margin: 40px;">
+        <div class="program-item" style="text-align: center;">
+          <div class="program-image" style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <img src="assets/gisana.png" alt="Post Cerimonia" class="section-icon"
+              style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
+          </div>
+          <div class="program-content" style="max-width: 400px; margin: 0 auto;">
+            <h2 style="font-family: '3ds Light', sans-serif;">Ricevimento</h2>
+            <h3 style="font-family: '3ds Light', sans-serif;">Villa Gisana</h3>
+            <p style="font-family: 'Yu Gothic Light', sans-serif;">Villa Gisana è una splendida dimora storica situata
+              nelle campagne di Modica, un antico casale del XVIII
+              secolo. Preparatevi a ballare, brindare e festeggiare con noi fino a tardi! (e ovviamente anche a
+              mangiare, altrimenti che matrimonio in Sicilia è???)</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="program-section" style="margin: 40px;">
+        <div class="program-item" style="text-align: center;">
+          <div class="program-image" style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <img src="assets/dress.png" alt="Post Cerimonia" class="section-icon"
+              style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
+          </div>
+          <div class="program-content" style="max-width: 400px; margin: 0 auto;">
+            <h2 style="font-family: '3ds Light', sans-serif;">Dress Code</h2>
+            <p style="font-family: 'Yu Gothic Light', sans-serif;">Per un giorno lasciamo il bianco alla sposa e il
+              nero... dentro nell'armadio! Vi vogliamo belli colorati, brillanti, tanto in fondo è una festa no?
+              Scegliete tra i vostri colori preferiti (tranne il bianco e il nero, promesso??? Se no, chi la sente a Glo
+              dopo??) e aiutateci a rendere questa giornata ancora più indimenticabile</p>
+          </div>
+        </div>
+      </section>
+
+
+    </section>
+
   </main>
+
+  <!-- Sezione Gallery -->
+  <section class="gallery-section" style="background-color: #dacfb9; padding: 40px 20px;">
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+      <img src="assets/timeline.png" alt="Timeline matrimonio"
+        style="max-width: 48%; height: auto; border-radius: 10px;">
+      <img src="assets/IMG_6473.jpg" alt="Foto matrimonio" style="max-width: 35%; height: auto; border-radius: 10px;">
+    </div>
+  </section>
+  <!-- Immagine Timeline -->
+
 
   <nav class="page-navigation">
     <div class="contact-info">
@@ -56,4 +119,5 @@
   <!-- Overlay per transizioni pagina -->
   <div class="page-transition-overlay" id="pageTransitionOverlay"></div>
 </body>
+
 </html>
