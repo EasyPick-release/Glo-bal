@@ -12,116 +12,104 @@
   <style>
     /* Stili per i bottoni travel */
     .travel-options {
-      margin: 2rem 0;
+      max-width: 900px;
+      margin: 2rem auto 0;
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .travel-carousel {
       width: 100%;
       max-width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .travel-carousel::before,
-    .travel-carousel::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 40px;
-      height: 100%;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .travel-carousel::before {
-      left: 0;
-      background: linear-gradient(to right, #ECEAE4, transparent);
-    }
-
-    .travel-carousel::after {
-      right: 0;
-      background: linear-gradient(to left, #ECEAE4, transparent);
+      min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
     }
 
     .travel-cards {
       display: flex;
-      gap: 1rem;
-      padding: 0.5rem 0.25rem 0.75rem;
-      flex-wrap: wrap;
-      width: 100%;
-      box-sizing: border-box;
+      flex-wrap: nowrap;
+      width: max-content;
+      gap: 16px;
+      padding: 10px 0;
+      min-width: 0;
     }
 
-    .carousel-dots {
-      display: none;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .carousel-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ccc;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .carousel-dot.active {
-      background: #000;
-      width: 12px;
-      height: 12px;
+    .content-text,
+    .details {
+      min-width: 0;
+      max-width: 100%;
     }
 
     .travel-btn {
-      flex: 0 0 auto;
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+      background: #e2d9c2;
+      border: 1px solid #ffffff00;
       border-radius: 18px;
-      background: #ffffff;
-      color: #000;
-      border: 1px solid #000;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      gap: 0.35rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-weight: 500;
+      align-items: center;
       text-align: center;
-      padding: 1rem;
+      cursor: pointer;
+      padding: 10px;
       scroll-snap-align: start;
+      transition: transform 0.2s ease;
     }
 
     .travel-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-    }
-
-    .travel-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-3px);
     }
 
     .travel-card-title {
-      font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .travel-card-subtitle {
       font-size: 0.9rem;
-      color: #333;
     }
 
     .travel-card-cta {
-      margin-top: 0.4rem;
       font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .travel-location-list {
+      margin: 0 0 1rem 1.2rem;
+      padding: 0;
+    }
+
+    .travel-location-list li {
+      margin-bottom: 0.45rem;
+    }
+
+    .travel-title-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .travel-title-image {
+      width: min(320px, 90%);
+      height: auto;
+      display: block;
+    }
+
+    .content-text,
+    .details,
+    .travel-btn,
+    .popup-content,
+    .transport-option,
+    .transport-option p,
+    .transport-option h4 {
+      font-family: 'Yu Gothic Light', sans-serif;
     }
 
     /* Stili per i popup */
@@ -219,32 +207,23 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .travel-carousel {
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
+    @media (max-width: 1024px) {
+      .content-row {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+
+      .content-text,
+      .details,
+      .travel-options {
         width: 100%;
-        box-sizing: border-box;
-        padding: 0 10px;
+        max-width: 100%;
       }
+    }
 
-      .travel-cards {
-        flex-wrap: nowrap;
-        padding: 1rem 0;
-        width: fit-content;
-        gap: 1rem;
-      }
-
-      .carousel-dots {
-        display: flex;
-      }
-
-      .travel-btn {
-        min-width: 150px;
-        width: 150px;
-        height: 150px;
-        flex-shrink: 0;
+    @media (max-width: 768px) {
+      .travel-title-image {
+        width: min(260px, 85vw);
       }
 
       .popup-content {
@@ -267,11 +246,8 @@
   <!-- Menu Navigazione -->
   <nav class="page-nav" id="pageNav">
     <a href="index.html" class="nav-link">Home</a>
-    <a href="location.html" class="nav-link">Location</a>
-    <a href="come-arrivare.html" class="nav-link">Come arrivare</a>
-    <a href="dress-code.html" class="nav-link">Dress Code</a>
-    <a href="lista-nozze.html" class="nav-link">Lista Nozze</a>
-    <a href="rsvp.html" class="nav-link">RSVP</a>
+    <a href="programma.html" class="nav-link">Programma</a>
+    <a href="lista-nozze.html" class="nav-link">In generale</a>
   </nav>
 
 
@@ -354,47 +330,52 @@
   <!-- Sezione Come Arrivare -->
   <section style="background-color: #ECEAE4; padding: 2rem 0;">
     <div class="content-row">
+      <div class="travel-title-wrap">
+          <img src="assets/title_2.png" alt="Come raggiungerci" class="travel-title-image" />
+        </div>
       <div class="content-image">
         <img src="assets/etna_voli_sicilia_catania.PNG" alt="Come arrivare" />
       </div>
       <div class="content-text">
-        <h1>Come raggiungerci</h1>
-      <div class="details">
-        <p>Il Duomo di San Pietro si trova nel cuore di Modica Bassa, mentre Villa Gisana è situata in zona extraurbana
-          (Contrada Zappulla).</p>
-        <p><a href="https://www.google.com/maps" target="_blank">📍 Visualizza su Google Maps</a></p>
+        
+        <div class="details">
+          <ul class="travel-location-list">
+            <li>
+              📍 <a href="https://share.google/pAHv3aPiTCpnQbvCz" target="_blank" rel="noopener noreferrer">Duomo di San Pietro</a>
+              nel cuore di Modica Bassa.
+            </li>
+            <li>
+              📍 <a href="https://share.google/iNiDcObWJTPd7KJNx" target="_blank" rel="noopener noreferrer">Villa Gisana</a>
+              in zona extraurbana (Contrada Zappulla).
+            </li>
+          </ul>
 
-        <div class="travel-options">
-          <div class="travel-carousel">
-            <div class="travel-cards">
-              <button class="travel-btn" data-popup="catania" type="button">
-                <span class="travel-card-title">Aeroporto di Catania</span>
-                <span class="travel-card-subtitle">(CTA)</span>
-                <span class="travel-card-cta">Indicazioni</span>
-              </button>
+          <div class="travel-options">
+            <div class="travel-carousel">
+              <div class="travel-cards">
+                <button class="travel-btn" data-popup="catania" type="button">
+                  <span class="travel-card-title">Aeroporto di Catania</span>
+                  <span class="travel-card-subtitle">(CTA)</span>
+                  <span class="travel-card-cta">Indicazioni</span>
+                </button>
 
-              <button class="travel-btn" data-popup="comiso" type="button">
-                <span class="travel-card-title">Aeroporto di Comiso</span>
-                <span class="travel-card-subtitle">(CIY)</span>
-                <span class="travel-card-cta">Indicazioni</span>
-              </button>
+                <button class="travel-btn" data-popup="comiso" type="button">
+                  <span class="travel-card-title">Aeroporto di Comiso</span>
+                  <span class="travel-card-subtitle">(CIY)</span>
+                  <span class="travel-card-cta">Indicazioni</span>
+                </button>
 
-              <button class="travel-btn" data-popup="villa" type="button">
-                <span class="travel-card-title">Duomo → Villa Gisana</span>
-                <span class="travel-card-subtitle">In auto o bus</span>
-                <span class="travel-card-cta">Indicazioni</span>
-              </button>
+                <button class="travel-btn" data-popup="villa" type="button">
+                  <span class="travel-card-title">Duomo → Villa Gisana</span>
+                  <span class="travel-card-subtitle">In auto o bus</span>
+                  <span class="travel-card-cta">Indicazioni</span>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="carousel-dots">
-            <div class="carousel-dot active" data-index="0"></div>
-            <div class="carousel-dot" data-index="1"></div>
-            <div class="carousel-dot" data-index="2"></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </section>
 
 
@@ -469,82 +450,33 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Gestione carousel su diverse dimensioni
-    function setupCarousel() {
-      const carousel = document.querySelector('.travel-carousel');
-      const cards = document.querySelector('.travel-cards');
-      
-      if (!carousel || !cards) return;
-      
-      function updateCarousel() {
-        if (window.innerWidth <= 1024) {
-          // Mobile/Tablet: abilita scroll orizzontale
-          carousel.style.overflowX = 'auto';
-          carousel.style.overflowY = 'hidden';
-          carousel.style.webkitOverflowScrolling = 'touch';
-          cards.style.flexWrap = 'nowrap';
-          cards.style.width = 'fit-content';
-          console.log('Mobile/Tablet: Carousel scrollabile');
-        } else {
-          // Desktop: wrapping normale
-          carousel.style.overflowX = 'hidden';
-          carousel.style.overflowY = 'hidden';
-          cards.style.flexWrap = 'wrap';
-          cards.style.width = '100%';
-          console.log('Desktop: Carousel normale');
+    const travelButtons = document.querySelectorAll('.travel-btn');
+    const travelPopups = document.querySelectorAll('.travel-popup');
+    const closeButtons = document.querySelectorAll('.close-btn');
+
+    travelButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const popupId = 'popup-' + btn.dataset.popup;
+        const popup = document.getElementById(popupId);
+        if (popup) {
+          popup.classList.add('show');
         }
-      }
-      
-      updateCarousel();
-      window.addEventListener('resize', updateCarousel);
-    }
-
-    // JavaScript per i popup
-    document.addEventListener('DOMContentLoaded', function () {
-      setupCarousel();
-      
-      const travelBtns = document.querySelectorAll('.travel-btn');
-      const popups = document.querySelectorAll('.travel-popup');
-      const closeBtns = document.querySelectorAll('.close-btn');
-
-      // Apri popup
-      travelBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const popupId = 'popup-' + btn.getAttribute('data-popup');
-          const popup = document.getElementById(popupId);
-          if (popup) {
-            popup.classList.add('show');
-            document.body.style.overflow = 'hidden';
-          }
-        });
       });
+    });
 
-      // Chiudi popup con X
-      closeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const popup = btn.closest('.travel-popup');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const popup = btn.closest('.travel-popup');
+        if (popup) {
           popup.classList.remove('show');
-          document.body.style.overflow = '';
-        });
+        }
       });
+    });
 
-      // Chiudi popup cliccando fuori
-      popups.forEach(popup => {
-        popup.addEventListener('click', (e) => {
-          if (e.target === popup) {
-            popup.classList.remove('show');
-            document.body.style.overflow = '';
-          }
-        });
-      });
-
-      // Chiudi con ESC
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          popups.forEach(popup => {
-            popup.classList.remove('show');
-          });
-          document.body.style.overflow = '';
+    travelPopups.forEach(popup => {
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+          popup.classList.remove('show');
         }
       });
     });
