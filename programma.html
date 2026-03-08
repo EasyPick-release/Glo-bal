@@ -15,47 +15,113 @@
       margin: 2rem 0;
     }
 
-    .travel-item {
+    .travel-carousel {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .travel-carousel::before,
+    .travel-carousel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 40px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .travel-carousel::before {
+      left: 0;
+      background: linear-gradient(to right, #ECEAE4, transparent);
+    }
+
+    .travel-carousel::after {
+      right: 0;
+      background: linear-gradient(to left, #ECEAE4, transparent);
+    }
+
+    .travel-cards {
       display: flex;
-      align-items: center;
-      margin: 1.5rem 0;
       gap: 1rem;
+      padding: 0.5rem 0.25rem 0.75rem;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .carousel-dots {
+      display: none;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .carousel-dot.active {
+      background: #000;
+      width: 12px;
+      height: 12px;
     }
 
     .travel-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #000;
-      color: #fff;
-      border: none;
+      flex: 0 0 auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 18px;
+      background: #ffffff;
+      color: #000;
+      border: 1px solid #000;
       cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 0.35rem;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-size: 1.2rem;
-      font-weight: 300;
+      font-weight: 500;
+      text-align: center;
+      padding: 1rem;
+      scroll-snap-align: start;
     }
 
     .travel-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
     }
 
     .travel-btn:active {
-      transform: scale(0.95);
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .plus-icon {
-      font-size: 1.5rem;
-      line-height: 1;
+    .travel-card-title {
+      font-size: 1rem;
+      font-weight: 600;
     }
 
-    .travel-label {
-      font-size: 1.1rem;
-      font-weight: 500;
+    .travel-card-subtitle {
+      font-size: 0.9rem;
       color: #333;
+    }
+
+    .travel-card-cta {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     /* Stili per i popup */
@@ -154,10 +220,31 @@
     }
 
     @media (max-width: 768px) {
-      .travel-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+      .travel-carousel {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+      }
+
+      .travel-cards {
+        flex-wrap: nowrap;
+        padding: 1rem 0;
+        width: fit-content;
+        gap: 1rem;
+      }
+
+      .carousel-dots {
+        display: flex;
+      }
+
+      .travel-btn {
+        min-width: 150px;
+        width: 150px;
+        height: 150px;
+        flex-shrink: 0;
       }
 
       .popup-content {
@@ -278,25 +365,31 @@
         <p><a href="https://www.google.com/maps" target="_blank">📍 Visualizza su Google Maps</a></p>
 
         <div class="travel-options">
-          <div class="travel-item">
-            <button class="travel-btn" data-popup="catania">
-              <span class="plus-icon">+</span>
-            </button>
-            <span class="travel-label">Dall'Aeroporto di Catania (CTA)</span>
-          </div>
+          <div class="travel-carousel">
+            <div class="travel-cards">
+              <button class="travel-btn" data-popup="catania" type="button">
+                <span class="travel-card-title">Aeroporto di Catania</span>
+                <span class="travel-card-subtitle">(CTA)</span>
+                <span class="travel-card-cta">Indicazioni</span>
+              </button>
 
-          <div class="travel-item">
-            <button class="travel-btn" data-popup="comiso">
-              <span class="plus-icon">+</span>
-            </button>
-            <span class="travel-label">Dall'Aeroporto di Comiso (CIY)</span>
-          </div>
+              <button class="travel-btn" data-popup="comiso" type="button">
+                <span class="travel-card-title">Aeroporto di Comiso</span>
+                <span class="travel-card-subtitle">(CIY)</span>
+                <span class="travel-card-cta">Indicazioni</span>
+              </button>
 
-          <div class="travel-item">
-            <button class="travel-btn" data-popup="villa">
-              <span class="plus-icon">+</span>
-            </button>
-            <span class="travel-label">Dal Duomo a Villa Gisana</span>
+              <button class="travel-btn" data-popup="villa" type="button">
+                <span class="travel-card-title">Duomo → Villa Gisana</span>
+                <span class="travel-card-subtitle">In auto o bus</span>
+                <span class="travel-card-cta">Indicazioni</span>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-dots">
+            <div class="carousel-dot active" data-index="0"></div>
+            <div class="carousel-dot" data-index="1"></div>
+            <div class="carousel-dot" data-index="2"></div>
           </div>
         </div>
       </div>
@@ -376,8 +469,40 @@
 
   <script src="js/main.js"></script>
   <script>
+    // Gestione carousel su diverse dimensioni
+    function setupCarousel() {
+      const carousel = document.querySelector('.travel-carousel');
+      const cards = document.querySelector('.travel-cards');
+      
+      if (!carousel || !cards) return;
+      
+      function updateCarousel() {
+        if (window.innerWidth <= 1024) {
+          // Mobile/Tablet: abilita scroll orizzontale
+          carousel.style.overflowX = 'auto';
+          carousel.style.overflowY = 'hidden';
+          carousel.style.webkitOverflowScrolling = 'touch';
+          cards.style.flexWrap = 'nowrap';
+          cards.style.width = 'fit-content';
+          console.log('Mobile/Tablet: Carousel scrollabile');
+        } else {
+          // Desktop: wrapping normale
+          carousel.style.overflowX = 'hidden';
+          carousel.style.overflowY = 'hidden';
+          cards.style.flexWrap = 'wrap';
+          cards.style.width = '100%';
+          console.log('Desktop: Carousel normale');
+        }
+      }
+      
+      updateCarousel();
+      window.addEventListener('resize', updateCarousel);
+    }
+
     // JavaScript per i popup
     document.addEventListener('DOMContentLoaded', function () {
+      setupCarousel();
+      
       const travelBtns = document.querySelectorAll('.travel-btn');
       const popups = document.querySelectorAll('.travel-popup');
       const closeBtns = document.querySelectorAll('.close-btn');

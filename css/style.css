@@ -541,7 +541,9 @@ body.scroll-locked {
 @media (max-width: 768px) {
   /* Pagina principale mobile */
   .video-section {
-    padding: 1rem;
+    min-height: 100vh;
+    height: 100svh;
+    padding: 0 1rem;
   }
   
   .details-section {
