@@ -497,8 +497,27 @@ body.scroll-locked {
   align-items: center;
 }
 
+.rsvp-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rsvp-qr {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 .contact-info {
   text-align: left;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.contact-card p {
+  margin: 0.35rem 0;
 }
 
 .contact-info p {
@@ -641,9 +660,19 @@ body.scroll-locked {
     gap: 1rem;
     text-align: center;
   }
+
+  .rsvp-actions {
+    justify-content: center;
+  }
+
+  .rsvp-qr {
+    width: 56px;
+    height: 56px;
+  }
   
   .contact-info {
     text-align: center;
+    align-items: center;
   }
   
   .top-nav {
