@@ -212,6 +212,13 @@ body.scroll-locked {
   text-align: left;
 }
 
+.title-image {
+  width: min(420px, 100%);
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .title-column h1 {
   font-size: 3.5rem;
   font-weight: 600;
@@ -513,24 +520,41 @@ body.scroll-locked {
   text-align: left;
   display: flex;
   gap: 2.5rem;
+  justify-content: center;
   align-items: flex-start;
+  flex: 1;
+  font-family: "Yu Gothic Light", "Yu Gothic", sans-serif;
+  font-weight: 700;
 }
 
 .contact-card p {
-  margin: 0.35rem 0;
+  margin: 0.15rem 0;
+}
+
+.contact-card p:nth-child(2),
+.contact-card p:nth-child(3) {
+  white-space: nowrap;
 }
 
 .contact-info p {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: #1d1d1f;
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.contact-card p:nth-child(2) {
+  margin-bottom: 0.05rem;
+}
+
+.contact-card p:nth-child(3) {
+  margin-top: 0.05rem;
 }
 
 .page-navigation .rsvp-btn {
   background: #1d1d1f;
   color: white;
   padding: 1rem 2rem;
-  border-radius: 25px;
+  border-radius: 2px;
   text-decoration: none;
   transition: all 0.3s ease;
   font-weight: 600;
@@ -556,6 +580,10 @@ body.scroll-locked {
   transform: translateY(-2px);
 }
 
+.page-navigation .nav-link.rsvp-btn {
+  border-radius: 8px;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   /* Pagina principale mobile */
@@ -577,6 +605,11 @@ body.scroll-locked {
   
   .title-column {
     text-align: center;
+  }
+
+  .title-image {
+    width: min(340px, 100%);
+    margin: 0 auto 1rem;
   }
   
   .title-column h1 {
@@ -672,7 +705,20 @@ body.scroll-locked {
   
   .contact-info {
     text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
     align-items: center;
+  }
+
+  .contact-card p {
+    font-size: 0.9rem;
+    line-height: 1.25;
+  }
+
+  .contact-card p:first-child {
+    font-size: 1rem;
   }
   
   .top-nav {
@@ -734,6 +780,10 @@ body.scroll-locked {
 }
 
 @media (max-width: 480px) {
+  .title-image {
+    width: min(260px, 100%);
+  }
+
   .title-column h1 {
     font-size: 2rem;
   }
@@ -749,6 +799,14 @@ body.scroll-locked {
   
   .content-text h1 {
     font-size: 1.5rem;
+  }
+
+  .contact-card p {
+    font-size: 0.82rem;
+  }
+
+  .contact-card p:first-child {
+    font-size: 0.92rem;
   }
 
   /* Programma extra small */

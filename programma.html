@@ -17,6 +17,25 @@
       width: 100%;
       min-width: 0;
       overflow: hidden;
+      position: relative;
+    }
+
+    .travel-scroll-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      margin: 0 0 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: #6f614c;
+      text-transform: uppercase;
+    }
+
+    .travel-scroll-hint::after {
+      content: '→';
+      font-size: 1rem;
     }
 
     .travel-carousel {
@@ -27,7 +46,29 @@
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
-      padding-bottom: 10px;
+      padding: 0 12px 12px 0;
+      cursor: grab;
+      scrollbar-width: thin;
+      scrollbar-color: #b69973 rgba(182, 153, 115, 0.18);
+      mask-image: linear-gradient(to right, transparent 0, black 18px, black calc(100% - 28px), transparent 100%);
+    }
+
+    .travel-carousel::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .travel-carousel::-webkit-scrollbar-track {
+      background: rgba(182, 153, 115, 0.18);
+      border-radius: 999px;
+    }
+
+    .travel-carousel::-webkit-scrollbar-thumb {
+      background: #b69973;
+      border-radius: 999px;
+    }
+
+    .travel-carousel:active {
+      cursor: grabbing;
     }
 
     .travel-cards {
@@ -52,6 +93,7 @@
       background: #e2d9c2;
       border: 1px solid #ffffff00;
       border-radius: 18px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -87,7 +129,39 @@
     }
 
     .travel-location-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
       margin-bottom: 0.45rem;
+      list-style: none;
+    }
+
+    .travel-location-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .travel-location-text {
+      color: #4f4333;
+      line-height: 1.6;
+    }
+
+    .travel-location-link,
+    .travel-location-link:visited,
+    .travel-location-link:active {
+      color: #6f614c;
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(111, 97, 76, 0.45);
+    }
+
+    .travel-location-link:hover,
+    .travel-location-link:focus-visible {
+      color: #3f3427;
+      border-bottom-color: currentColor;
     }
 
     .travel-title-wrap {
@@ -185,6 +259,19 @@
       color: #666;
     }
 
+    .secret-popup-content {
+      max-width: 520px;
+      padding: 0.9rem;
+      background: #fffaf2;
+    }
+
+    .secret-popup-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -224,6 +311,10 @@
     @media (max-width: 768px) {
       .travel-title-image {
         width: min(260px, 85vw);
+      }
+
+      .travel-scroll-hint {
+        font-size: 0.8rem;
       }
 
       .popup-content {
@@ -300,6 +391,7 @@
         <div class="program-item" style="text-align: center;">
           <div class="program-image" style="display: flex; justify-content: center; margin-bottom: 20px;">
             <img src="assets/dress.png" alt="Post Cerimonia" class="section-icon"
+              id="dressCodeImage"
               style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
           </div>
           <div class="program-content" style="max-width: 400px; margin: 0 auto;">
@@ -341,16 +433,19 @@
         <div class="details">
           <ul class="travel-location-list">
             <li>
-              📍 <a href="https://share.google/pAHv3aPiTCpnQbvCz" target="_blank" rel="noopener noreferrer">Duomo di San Pietro</a>
-              nel cuore di Modica Bassa.
+              <img src="assets/location.png" alt="" class="travel-location-icon">
+              <span class="travel-location-text"><a href="https://maps.app.goo.gl/futfLjwH7rdB85Rr5" target="_blank" rel="noopener noreferrer" class="travel-location-link">Duomo di San Pietro</a>
+              nel cuore di Modica Bassa.</span>
             </li>
             <li>
-              📍 <a href="https://share.google/iNiDcObWJTPd7KJNx" target="_blank" rel="noopener noreferrer">Villa Gisana</a>
-              in zona extraurbana (Contrada Zappulla).
+              <img src="assets/location.png" alt="" class="travel-location-icon">
+              <span class="travel-location-text"><a href="https://maps.app.goo.gl/TBgtFQcqQ9b9nLo78" target="_blank" rel="noopener noreferrer" class="travel-location-link">Villa Gisana</a>
+              in zona extraurbana (Contrada Zappulla).</span>
             </li>
           </ul>
 
           <div class="travel-options">
+            <p class="travel-scroll-hint">Scorri per vedere tutte le opzioni</p>
             <div class="travel-carousel">
               <div class="travel-cards">
                 <button class="travel-btn" data-popup="catania" type="button">
@@ -439,18 +534,46 @@
     </div>
   </div>
 
+  <!-- Popup segreto Dress Code -->
+  <div class="travel-popup" id="popup-pepao">
+    <div class="popup-content secret-popup-content">
+      <button class="close-btn" aria-label="Chiudi popup">&times;</button>
+      <img src="assets/pepano.jpeg" alt="Pepao" class="secret-popup-image">
+    </div>
+  </div>
+
+  <!-- Popup segreto carousel -->
+  <div class="travel-popup" id="popup-bedo">
+    <div class="popup-content secret-popup-content">
+      <button class="close-btn" aria-label="Chiudi popup">&times;</button>
+      <img src="assets/bedo.jpeg" alt="Bedo" class="secret-popup-image">
+    </div>
+  </div>
+
 
   <nav class="page-navigation">
     <div class="contact-info">
       <div class="contact-card">
         <p><strong>Andre</strong></p>
-        <p>+39 3346577262</p>
-        <p>andre@email.com</p>
+                <p>
+          <img src="assets/phone.png" alt="Telefono" style="width: 1em; vertical-align: middle; margin-right: 6px;">
+          +39 3346577262
+        </p>
+        <p>
+          <img src="assets/email.png" alt="Email" style="width: 1em; vertical-align: middle; margin-right: 6px;">
+          aballabio@gmail.com
+        </p>
       </div>
       <div class="contact-card">
         <p><strong>Glo</strong></p>
-        <p>+39 3371616319</p>
-        <p>glo@email.com</p>
+        <p>
+          <img src="assets/phone.png" alt="Telefono" style="width: 1em; vertical-align: middle; margin-right: 6px;">
+          +39 3371616319
+        </p>
+        <p>
+          <img src="assets/email.png" alt="Email" style="width: 1em; vertical-align: middle; margin-right: 6px;">
+          gloria.farinella@hotmail.it
+        </p>
       </div>
     </div>
     <div class="rsvp-actions">
@@ -464,6 +587,19 @@
     const travelButtons = document.querySelectorAll('.travel-btn');
     const travelPopups = document.querySelectorAll('.travel-popup');
     const closeButtons = document.querySelectorAll('.close-btn');
+    const travelCarousel = document.querySelector('.travel-carousel');
+    const dressCodeImage = document.getElementById('dressCodeImage');
+    const pepaoPopup = document.getElementById('popup-pepao');
+    const bedoPopup = document.getElementById('popup-bedo');
+
+    let dressClickCount = 0;
+    let dressClickTimer;
+    let carouselLastScrollLeft = travelCarousel ? travelCarousel.scrollLeft : 0;
+    let carouselLastDirection = null;
+    let carouselPatternIndex = 0;
+    let carouselPatternCycles = 0;
+    let carouselPatternResetTimer;
+    const carouselPattern = ['R', 'L', 'R', 'L'];
 
     travelButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -491,6 +627,70 @@
         }
       });
     });
+
+    if (dressCodeImage && pepaoPopup) {
+      dressCodeImage.addEventListener('click', () => {
+        dressClickCount += 1;
+        clearTimeout(dressClickTimer);
+
+        if (dressClickCount === 3) {
+          pepaoPopup.classList.add('show');
+          dressClickCount = 0;
+          return;
+        }
+
+        dressClickTimer = setTimeout(() => {
+          dressClickCount = 0;
+        }, 1100);
+      });
+    }
+
+    if (travelCarousel && bedoPopup) {
+      travelCarousel.addEventListener('scroll', () => {
+        const currentScrollLeft = travelCarousel.scrollLeft;
+        const delta = currentScrollLeft - carouselLastScrollLeft;
+        carouselLastScrollLeft = currentScrollLeft;
+
+        if (Math.abs(delta) < 12) {
+          return;
+        }
+
+        const currentDirection = delta > 0 ? 'R' : 'L';
+        if (currentDirection === carouselLastDirection) {
+          return;
+        }
+
+        carouselLastDirection = currentDirection;
+        clearTimeout(carouselPatternResetTimer);
+
+        const expectedDirection = carouselPattern[carouselPatternIndex];
+        if (currentDirection === expectedDirection) {
+          carouselPatternIndex += 1;
+
+          if (carouselPatternIndex === carouselPattern.length) {
+            carouselPatternCycles += 1;
+            carouselPatternIndex = 0;
+
+            if (carouselPatternCycles === 2) {
+              bedoPopup.classList.add('show');
+              carouselPatternCycles = 0;
+              carouselPatternIndex = 0;
+              carouselLastDirection = null;
+              return;
+            }
+          }
+        } else {
+          carouselPatternCycles = 0;
+          carouselPatternIndex = currentDirection === carouselPattern[0] ? 1 : 0;
+        }
+
+        carouselPatternResetTimer = setTimeout(() => {
+          carouselPatternCycles = 0;
+          carouselPatternIndex = 0;
+          carouselLastDirection = null;
+        }, 1700);
+      });
+    }
   </script>
 
   <!-- Overlay per transizioni pagina -->

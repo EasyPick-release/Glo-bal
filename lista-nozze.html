@@ -76,6 +76,33 @@
             line-height: 1.6;
             color: #666;
         }
+
+        .styled-inline-link,
+        .styled-inline-link:visited,
+        .styled-inline-link:active {
+            color: #6f614c;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(111, 97, 76, 0.45);
+        }
+
+        .styled-inline-link:hover,
+        .styled-inline-link:focus-visible {
+            color: #3f3427;
+            border-bottom-color: currentColor;
+        }
+
+        .paypal-link-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .paypal-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
     </style>
 </head>
 
@@ -89,11 +116,11 @@
     </div>
 
     <!-- Menu Navigazione -->
-  <nav class="page-nav" id="pageNav">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="programma.html" class="nav-link">Programma</a>
-    <a href="lista-nozze.html" class="nav-link">Lista nozze - FAQ</a>
-  </nav>
+    <nav class="page-nav" id="pageNav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="programma.html" class="nav-link">Programma</a>
+        <a href="lista-nozze.html" class="nav-link">Lista nozze - FAQ</a>
+    </nav>
 
     <main class="page-content">
         <div class="content-row">
@@ -103,18 +130,24 @@
             <div class="content-text">
                 <h1>Lista nozze</h1>
                 <div class="details">
-                    <p>Festeggiare con voi è il regalo più importante!
-                        Tuttavia, Se volete aggiungere un pensiero per il nostro viaggio di nozze,
-                        potete farlo qui:
+                    <p>Passare questa giornata con voi è la cosa più bella che possiamo chiedervi.<br><br>
+                        A chi farebbe comunque piacere farci un pensiero, sapete bene che ci piace viaggiare.
+                        La nostra destinazione sarà l'Australia e la Polinesia Francese, il più lontano possibile da
+                        qualsiasi robot.
+                        <br><br>Se volete contribuire al nostro viaggio, potete farlo tramite bonifico bancario o
+                        PayPal:<br>
                     </p>
                     <p>
-                        IBAN: [Il vostro codice]
+                        <strong>IBAN:</strong> LT80 3250 0719 4167 0663
                     </p>
                     <p>
-                        Intestato a: [Nome e Cognome]
+                        <strong>Intestato a:</strong> Andrea Ballabio
                     </p>
                     <p>
-                        Causale consigliata: "Regalo per Andre e Glo da [Nome Cognome]"
+                        <strong>Causale consigliata:</strong> "Regalo per Andre e Glo da [Nome Cognome]"
+                    </p>
+                    <p>
+                        <strong>PayPal:</strong> <span class="paypal-link-wrap"><img src="assets/paypal.png" alt="PayPal" class="paypal-icon"><a href="https://www.paypal.me/gloriafarinella?locale.x=it_IT" target="_blank" rel="noopener noreferrer" class="styled-inline-link">Paypal</a></span>
                     </p>
                 </div>
             </div>
@@ -134,7 +167,9 @@
             <img src="assets/qr.png" alt="QR Code RSVP" style="width: 150px; height: 150px;">
         </div>
         <p>
-            O clicca <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__qW3WSpUMUROTkVKR0hIWUU1V0JBM0g5V1c2VVYzMy4u">qui</a> per confermare la tua presenza.
+            O clicca <a class="styled-inline-link"
+                href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__qW3WSpUMUROTkVKR0hIWUU1V0JBM0g5V1c2VVYzMy4u">qui</a>
+            per confermare la tua presenza.
         </p>
     </section>
 
